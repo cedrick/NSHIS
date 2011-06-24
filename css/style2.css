@@ -1,0 +1,361 @@
+body {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	width:1230px;
+}
+
+a{
+	text-decoration:none;
+	color:#6a0000;
+	font-weight:800;
+}
+
+
+#content{
+	width:100%;
+	padding:0;
+	margin:0;
+}
+
+#menuContentHeader{
+	margin-top:20px;
+}
+
+#titleText{
+	color:#892904;
+	font-size:17px;
+	padding:5px 0;
+}
+
+#contentBody{
+	padding:0;
+	margin:0;
+	display: inline-block; 
+	display: block; 
+	overflow: hidden;
+}
+#leftcontentBody{
+	width:230px;
+	float:left;
+	
+}
+#rightcontentBody{
+	min-height:300px;
+	width:1000px;
+	float:right;
+	padding:0;
+	margin:10px 0;
+	background-color:#eeeeee;
+	display: inline-block; 
+	overflow: hidden;
+}
+
+.width300{
+	width:300px;
+}
+.width350{
+	width:350px;
+}
+.width400{
+	width:400px;
+}
+.width500{
+	width:500px;
+}
+.width600{
+	width:600px;
+}
+.width700{
+	width:700px;
+}
+.width950{
+	width:950px;
+}
+.section{
+	margin:20px;
+	padding:0;
+}
+.sectionHeader{
+	font-size:14px;
+	font-weight:800;
+	height:25px;
+	padding:10px 30px 0 30px;
+	border-right:solid 1px #a80329;
+	border-left:solid 1px #a80329;
+	border-top:solid 1px #a80329;
+	background:url("images/section-header.png") no-repeat #999999;
+	
+}
+#nslogo{
+	background:url("images/northstar_logo.jpg") no-repeat;
+	height:50px;
+}
+.sectionBody{
+	font-size:12px;
+	background:#ffffff;
+	padding:10px 30px 10px 30px;
+	border-right:solid 1px #a80329;
+	border-bottom:solid 1px #a80329;
+	border-left:solid 1px #a80329;
+}
+ul.icons {margin: 0; padding: 0;}
+ul.icons li {margin: 2px; position: relative; padding: 4px 0; cursor: pointer; float: left;  list-style: none;}
+ul.icons span.ui-icon {float: left; margin: 0 4px;}
+
+.errMsg{
+	font-size:12px;
+	font-weight:800;
+	text-decoration:underline;
+	margin-top:15px;
+	color:#8f2516;
+}
+
+#contentFooter{
+	height:100px;
+	background-color:#f0f0f0;
+}
+#contentFooter #thinStripe{
+	background-color:#a80329;
+	width:100%;
+	height:10px;
+}
+
+#contentFooter #copyright{
+	text-align:center;
+	margin-top:35px;
+}
+
+#latestStatusTable{
+	font-size:12px;
+	color:#646464;
+	border:#999999 solid 1px;
+}
+.latestStatusTableHeader{
+	background-color:#9CCCE2;
+	font-size:14px;
+	font-weight:900;
+	color:#000000;
+}
+
+#latestStatusTable td{
+	border-left:1px solid #efefef;
+	border-right:1px solid #efefef;
+	padding:3px;
+	margin:0;
+}
+
+#latestStatusTable td a{
+	text-decoration:none;
+	
+}
+
+#resultName{
+	background-color:#9CCCE2;
+	font-size:14px;
+	font-weight:900;
+	color:#000000;
+}
+
+/*view.php*/
+.contactDetailsTable{
+	padding:0;
+	margin:0;
+}
+.contactDetailsTable td{
+	font-size:14px;
+}
+
+.innerContactDetailsTable{
+	margin:0;
+	border: 1px #808080 solid;
+}
+
+.forceRightFloat{
+	float:right;
+}
+.forceLeftFloat{
+	float:left;
+}
+
+#myLogs {
+	border:1px solid #CCCCCC;
+}
+
+#logs {
+	border:1px solid #CCCCCC;
+	width:532px;
+}
+
+.currentStatus{
+	width:100%;
+	padding:10px 0;
+	margin:10px 0;
+	border:1px solid #CCCCCC;
+}
+.currentStatusHead{
+	margin:0 10px;
+	font-size:14px;
+	font-weight:800;
+	color:#800000;
+}
+.currentStatusBody form{
+	margin:10px 0 0 0;
+	padding:0;
+}
+
+.statusTitle{
+	font-weight:800;
+}
+.statusDate{
+	font-size:10px;
+	font-style:italic;
+	color:#808080;
+}
+
+/*MENU*/
+.menu{
+	border:none;
+	border:0px;
+	margin:0px;
+	padding:0px;
+	font-family:verdana,geneva,arial,helvetica,sans-serif;
+	font-size:10px;
+	font-weight:bold;
+	color:8e8e8e;
+	}
+.menu ul{
+	background:url(images/menu-bg.gif) top left repeat-x;
+	height:43px;
+	list-style:none;
+	margin:0;
+	padding:0;
+	}
+	.menu li{
+		float:left;
+		padding:0px 8px 0px 8px;
+		}
+	.menu li a{
+		color:#666666;
+		display:block;
+		font-weight:bold;
+		line-height:43px;
+		padding:0px 25px;
+		text-align:center;
+		text-decoration:none;
+		}
+		.menu li a:hover{
+			color:#000000;
+			text-decoration:none;
+			}
+	
+	.menu li ul{
+		background:#e0e0e0;
+		border-left:2px solid #a80329;
+		border-right:2px solid #a80329;
+		border-bottom:2px solid #a80329;
+		display:none;
+		height:auto;
+		filter:alpha(opacity=95);
+		opacity:0.95;
+		position:absolute;
+		width:225px;
+		z-index:200;
+		/*top:1em;
+		/*left:0;*/
+		}
+	.menu li:hover ul{
+		display:block;#ffffff
+		}
+	.menu li li {
+		display:block;
+		float:none;
+		padding:0px;
+		width:225px;
+		}
+	.menu li ul a{
+		display:block;
+		font-size:10px;
+		font-style:normal;
+		padding:0px 10px 0px 15px;
+		text-align:left;
+		}
+		.menu li ul a:hover{
+			background:#949494;
+			color:#000000;
+			opacity:1.0;
+			filter:alpha(opacity=100);
+			}
+	.menu p{
+		clear:left;
+		}	
+	.menu #current{
+		background:url(images/current-bg.gif) top left repeat-x;
+		color:#ffffff;
+		}
+	.menu ul .greetings{
+		font-size:15px;
+		font-weight:900;
+		line-height:43px;
+		text-align:right;
+		width:650px;
+		color:#892904;
+	}	
+	
+/*Left Menu*/
+#menu7 {
+	width: 200px;
+	margin: 10px;
+	}
+#menu7 ul {
+	list-style:none outside none;
+	margin:0;
+	padding:0;
+	}
+	
+#menu7 li a {
+	height: 32px;
+  	voice-family: "\"}\""; 
+  	voice-family: inherit;
+  	height: 24px;
+	text-decoration: none;
+	}	
+	
+#menu7 li a:link, #menu7 li a:visited {
+	color: #FFF;
+	display: block;
+	background:  url(images/menu7.gif);
+	padding: 8px 0 0 30px;
+	}
+	
+#menu7 li a:hover {
+	color: #FFF;
+	background:  url(images/menu7.gif) 0 -32px;
+	padding: 8px 0 0 30px;
+	}
+
+#comments{
+	padding-bottom: 5px;
+}
+
+#comments .comments-head{
+	font-size: 10px;
+}
+
+#comments .comments-head .post-by{
+	font-weight:900;
+}
+
+#comments .comments-head .post-date{
+	font-style: italic;
+	margin-left: 10px;
+	color:#808080;
+}
+
+#comments .comments-body{
+	font-size: 11px;
+	padding-bottom: 5px;
+	margin-left: 5px;
+	text-align: justify;
+	border-bottom:solid thin #c8c8c8
+}
+	
