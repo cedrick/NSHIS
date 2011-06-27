@@ -116,7 +116,7 @@ class CPU extends CI_Controller {
 			
 			if ($id)
 			{
-				$this->Stats_model->insert_log($this->session->userdata('user_id'), $id, 'cpu', 'assign');
+				$this->Stats_model->insert_log($this->session->userdata('user_id'), $cpu_id, 'cpu', 'assign', $id);
 				
 				redirect('/cubicle/view/'.$id, 'refresh');
 			}
