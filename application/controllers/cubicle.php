@@ -11,6 +11,8 @@ Class Cubicle extends CI_Controller {
 		$this->load->model('Cubicle_model');
 		
 		$this->load->model('Stats_model');
+		
+		$this->load->model('Globals_model');
 	}
 	
 	function index()
@@ -116,10 +118,13 @@ Class Cubicle extends CI_Controller {
 	function view($cubicle_id)
 	{
 		
-		$data = $this->Cubicle_model->get_cubicle_info($cubicle_id);
+		$info = $this->Cubicle_model->get_cubicle_info($cubicle_id);
 		$comments = $this->Cubicle_model->get_comments($cubicle_id);
+		$logs = $this->Globals_model->get_item_logs($cubicle_id, 'cubicle');
 		
-		$this->load->view('template',array('page'=>'cubicle/view', 'data'=>$data, 'comments'=>$comments));
+		$data = array('info' => $info, 'comments' => $comments, 'logs' => $logs);
+		
+		$this->load->view('template',array('page'=>'cubicle/view', 'data'=>$data));
 		
 	}
 	

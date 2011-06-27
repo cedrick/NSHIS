@@ -9,6 +9,12 @@ class Globals_model extends CI_Model {
 	
 	function get_item_logs($id, $type)
 	{
+		if ($type == 'cubicle') {
+			$where_clause = "b.cubicle_id = ".$id;
+		} 
+		else {
+			$where_clause = "device_id = ".$id." AND device = '".$type."'";
+		}
 		$query_str = "
 			SELECT  a.username, b.*,
 				c.name as cubicle_deployed,
@@ -35,7 +41,7 @@ class Globals_model extends CI_Model {
 			    LEFT JOIN nshis_upss AS k ON b.device_id = k.ups_id
 			    LEFT JOIN nshis_cubicles AS l ON b.device_id = l.cubicle_id
 			    LEFT JOIN nshis_usb_headsets AS m ON b.device_id = m.usb_headset_id
-			WHERE device_id = ".$id." AND device = '".$type."'
+			WHERE ".$where_clause."
 			order by b.cdate desc";
 		
 		$return = $this->db->query($query_str);
@@ -49,4 +55,6 @@ class Globals_model extends CI_Model {
 			return false;
 		}
 	}
+	
+	
 }

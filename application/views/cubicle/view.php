@@ -1,7 +1,7 @@
 					<?php 
 						if ($data)
 						{
-							$row = $data->row();
+							$row = $data['info']->row();
 					?>
 					<div class="section width500" >
 						<div class="sectionHeader">Cubicle <?php echo $row->name;?> Info</div>
@@ -44,7 +44,7 @@
 						<div class="sectionHeader">Comments</div>
 						<div class="sectionBody">
 						<?php 
-							if ($comments)
+							if ($data['comments'])
 							{
 								
 								foreach ($comments->result() as $row2)
@@ -60,6 +60,67 @@
 								}
 							}
 						?>
+						</div>
+					</div>
+					<div class="section width700" >
+						<div class="sectionHeader">Logs</div>
+						<div class="sectionBody">
+							<table width="100%" border="0" cellpadding="10" id="latestStatusTable">
+								<tr class="latestStatusTableHeader"><td width=25%>Date</td><td>Description</td></tr>
+								<?php
+									if ($data['logs'])
+									{
+										foreach ($data['logs']->result() as $row)
+										{
+											$type = $row->device;
+											$type_name = $type.'_name';
+											
+											//skip showing deleted items
+											if (!$row->$type_name && $row->process != 'delete')
+											{
+												continue;	
+											}else 
+											{
+												if ($row->cubicle_id != 0)
+												{
+													if($row->process == 'assign' || $row->process == 'swap' || $row->process == 'transfer')
+													{
+														$cubicle = ' to '.anchor('cubicle/view/'.$row->cubicle_id, $row->cubicle_deployed);
+													}
+													elseif($row->process == 'pullout')
+													{
+														$cubicle = ' from '.anchor('cubicle/view/'.$row->cubicle_id, $row->cubicle_deployed);
+													} 
+												}
+												else
+												{
+													$cubicle = NULL;
+												}
+												
+												switch ($row->process){
+													case 'add':
+														$operation = ' add new';
+														echo '
+															<tr><td>'.$row->cdate.'</td><td><strong>'.$row->username.'</strong>'.$operation.' '.anchor($row->device.'/view/'.$row->device_id,$row->device.' ['.$row->$type_name.']').$cubicle.'</td></tr>
+														';
+														break;
+													case 'comment':
+														$operation = ' add comment on';
+														echo '
+															<tr><td>'.$row->cdate.'</td><td><strong>'.$row->username.'</strong>'.$operation.' '.anchor($row->device.'/view/'.$row->device_id,$row->$type_name).'</td></tr>
+														';
+														break;
+													default:
+														$operation = ' '.$row->process;
+														echo '
+															<tr><td>'.$row->cdate.'</td><td><strong>'.$row->username.'</strong>'.$operation.' '.anchor($row->device.'/view/'.$row->device_id,$row->device.' ['.$row->$type_name.']').$cubicle.'</td></tr>
+														';
+												}
+											}
+										}
+									}
+								?>
+							</table>	 
 						</div>
 					</div>
 					<?php
