@@ -56,5 +56,38 @@ class Globals_model extends CI_Model {
 		}
 	}
 	
+	function insert_log($user_id, $device_id, $device, $process, $cubicle_id = 0, $usb_headset_assigned = NULL)
+	{
+		
+		$cubicle_name = $cubicle_id != 0 ? $this->get_device_name($cubicle_id, 'cubicle') : NULL;
+		
+		$data = array(
+			'user_id'	=>	$user_id,
+			'process'	=>	$process,
+			'device_id'	=>	$device_id,
+			'device'	=>	$device,
+			'device_name'	=>	$this->get_device_name($device_id, $device),
+			'cubicle_id' =>	$cubicle_id,
+			'cubicle_name' => $cubicle_name,
+			'usb_headset_assignment' => $usb_headset_assigned
+		);
+		
+		$this->db->set('cdate', 'NOW()', FALSE);  
+		
+		$this->db->insert('nshis_logs', $data); 
+	}
+	
+	private function get_device_name($device_id, $device_type)
+	{
+		$query = $this->db->get_where('nshis_'.$device_type.'s', array($device_type.'_id' => $device_id));
+		
+		if ($query->num_rows() > 0) {
+			$info = $query->row();
+			return $info->name;
+		}
+		else {
+			return FALSE;
+		}
+	}
 	
 }
