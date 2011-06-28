@@ -182,6 +182,11 @@ class Dialpad extends CI_Controller {
 			else
 			{
 				$cubicle_id = $this->input->post('cubicle_id');
+				
+				//pullout item if destination has already assigned
+				$old_data = $this->Cubicle_model->get_cubicle_info_by_id($cubicle_id);
+				$old_data[$this->router->fetch_class()] != 0 ? $this->pullout($old_data[$this->router->fetch_class()], FALSE) : NULL;
+				
 
 				$id = $this->Dialpad_model->transfer($dialpad_id, $cubicle_id);
 
@@ -294,7 +299,7 @@ class Dialpad extends CI_Controller {
 		}
 	}
 
-	function pullout($dialpad_id)
+	function pullout($dialpad_id, $redirect = TRUE)
 	{
 		$return = $this->Dialpad_model->pull_out($dialpad_id);
 
@@ -302,7 +307,7 @@ class Dialpad extends CI_Controller {
 		{
 			$this->devicelog->insert_log($this->session->userdata('user_id'), $dialpad_id, 'dialpad', 'pullout', $return);
 				
-			redirect('/dialpad/view/'.$dialpad_id, 'refresh');
+			$redirect == TRUE ? redirect('/dialpad/view/'.$dialpad_id, 'refresh') : '';
 		}
 		else
 		{

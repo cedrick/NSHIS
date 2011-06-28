@@ -182,6 +182,11 @@ class Mouse extends CI_Controller {
 			else
 			{
 				$cubicle_id = $this->input->post('cubicle_id');
+				
+				//pullout item if destination has already assigned
+				$old_data = $this->Cubicle_model->get_cubicle_info_by_id($cubicle_id);
+				$old_data[$this->router->fetch_class()] != 0 ? $this->pullout($old_data[$this->router->fetch_class()], FALSE) : NULL;
+				
 
 				$id = $this->Mouse_model->transfer($mouse_id, $cubicle_id);
 
@@ -294,7 +299,7 @@ class Mouse extends CI_Controller {
 		}
 	}
 
-	function pullout($mouse_id)
+	function pullout($mouse_id, $redirect = TRUE)
 	{
 		$return = $this->Mouse_model->pull_out($mouse_id);
 
@@ -302,7 +307,7 @@ class Mouse extends CI_Controller {
 		{
 			$this->devicelog->insert_log($this->session->userdata('user_id'), $mouse_id, 'mouse', 'pullout', $return);
 				
-			redirect('/mouse/view/'.$mouse_id, 'refresh');
+			$redirect == TRUE ? redirect('/mouse/view/'.$mouse_id, 'refresh') : '';
 		}
 		else
 		{

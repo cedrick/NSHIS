@@ -284,13 +284,17 @@ class CPU extends CI_Controller {
 			else
 			{
 				$cubicle_id = $this->input->post('cubicle_id');
-
+				
+				//pullout item if destination has already assigned
+				$old_data = $this->Cubicle_model->get_cubicle_info_by_id($cubicle_id);
+				$old_data[$this->router->fetch_class()] != 0 ? $this->pullout($old_data[$this->router->fetch_class()], FALSE) : NULL;
+				
 				$id = $this->CPU_model->transfer($cpu_id, $cubicle_id);
 
 				if ($id)
 				{
 					$this->devicelog->insert_log($this->session->userdata('user_id'), $cpu_id, 'cpu', 'transfer', $id);
-						
+					
 					redirect('/cubicle/view/'.$id, 'refresh');
 				}
 
@@ -396,7 +400,7 @@ class CPU extends CI_Controller {
 		}
 	}
 
-	function pullout($cpu_id)
+	function pullout($cpu_id, $redirect = TRUE)
 	{
 		$return = $this->CPU_model->pull_out($cpu_id);
 
@@ -404,14 +408,12 @@ class CPU extends CI_Controller {
 		{
 			$this->devicelog->insert_log($this->session->userdata('user_id'), $cpu_id, 'cpu', 'pullout', $return);
 				
-			redirect('/cpu/view/'.$cpu_id, 'refresh');
+			$redirect == TRUE ? redirect('/cpu/view/'.$cpu_id, 'refresh') : '';
 		}
 		else
 		{
 			echo "Cannot pullout unassigned item. Please go back into your previous page.";
 		}
-
-
 	}
 
 	function userCheck($is_logged)

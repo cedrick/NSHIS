@@ -182,6 +182,11 @@ class Keyboard extends CI_Controller {
 			else
 			{
 				$cubicle_id = $this->input->post('cubicle_id');
+				
+				//pullout item if destination has already assigned
+				$old_data = $this->Cubicle_model->get_cubicle_info_by_id($cubicle_id);
+				$old_data[$this->router->fetch_class()] != 0 ? $this->pullout($old_data[$this->router->fetch_class()], FALSE) : NULL;
+				
 
 				$id = $this->Keyboard_model->transfer($keyboard_id, $cubicle_id);
 
@@ -294,7 +299,7 @@ class Keyboard extends CI_Controller {
 		}
 	}
 
-	function pullout($keyboard_id)
+	function pullout($keyboard_id, $redirect = TRUE)
 	{
 		$return = $this->Keyboard_model->pull_out($keyboard_id);
 
@@ -302,7 +307,7 @@ class Keyboard extends CI_Controller {
 		{
 			$this->devicelog->insert_log($this->session->userdata('user_id'), $keyboard_id, 'keyboard', 'pullout', $return);
 				
-			redirect('/keyboard/view/'.$keyboard_id, 'refresh');
+			$redirect == TRUE ? redirect('/keyboard/view/'.$keyboard_id, 'refresh') : '';
 		}
 		else
 		{

@@ -182,6 +182,11 @@ class Monitor extends CI_Controller {
 			else
 			{
 				$cubicle_id = $this->input->post('cubicle_id');
+				
+				//pullout item if destination has already assigned
+				$old_data = $this->Cubicle_model->get_cubicle_info_by_id($cubicle_id);
+				$old_data[$this->router->fetch_class()] != 0 ? $this->pullout($old_data[$this->router->fetch_class()], FALSE) : NULL;
+				
 
 				$id = $this->Monitor_model->transfer($monitor_id, $cubicle_id);
 
@@ -294,7 +299,7 @@ class Monitor extends CI_Controller {
 		}
 	}
 
-	function pullout($monitor_id)
+	function pullout($monitor_id, $redirect = TRUE)
 	{
 		$return = $this->Monitor_model->pull_out($monitor_id);
 
@@ -302,7 +307,7 @@ class Monitor extends CI_Controller {
 		{
 			$this->devicelog->insert_log($this->session->userdata('user_id'), $monitor_id, 'monitor', 'pullout', $return);
 				
-			redirect('/monitor/view/'.$monitor_id, 'refresh');
+			$redirect == TRUE ? redirect('/monitor/view/'.$monitor_id, 'refresh') : '';
 		}
 		else
 		{

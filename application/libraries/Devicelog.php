@@ -57,7 +57,7 @@ class Devicelog {
 			$this->CI->db->limit(100);
 		}
 
-		$this->CI->db->order_by('nshis_logs.cdate', 'DESC');
+		$this->CI->db->order_by('nshis_logs.log_id', 'DESC');
 
 		$query = $this->CI->db->get();
 

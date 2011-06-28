@@ -182,6 +182,11 @@ class Ups extends CI_Controller {
 			else
 			{
 				$cubicle_id = $this->input->post('cubicle_id');
+				
+				//pullout item if destination has already assigned
+				$old_data = $this->Cubicle_model->get_cubicle_info_by_id($cubicle_id);
+				$old_data[$this->router->fetch_class()] != 0 ? $this->pullout($old_data[$this->router->fetch_class()], FALSE) : NULL;
+				
 
 				$id = $this->Ups_model->transfer($ups_id, $cubicle_id);
 
@@ -294,7 +299,7 @@ class Ups extends CI_Controller {
 		}
 	}
 
-	function pullout($ups_id)
+	function pullout($ups_id, $redirect = TRUE)
 	{
 		$return = $this->Ups_model->pull_out($ups_id);
 
@@ -302,7 +307,7 @@ class Ups extends CI_Controller {
 		{
 			$this->devicelog->insert_log($this->session->userdata('user_id'), $ups_id, 'ups', 'pullout', $return);
 				
-			redirect('/ups/view/'.$ups_id, 'refresh');
+			$redirect == TRUE ? redirect('/ups/view/'.$ups_id, 'refresh') : '';
 		}
 		else
 		{

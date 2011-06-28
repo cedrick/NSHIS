@@ -182,6 +182,11 @@ class Headset extends CI_Controller {
 			else
 			{
 				$cubicle_id = $this->input->post('cubicle_id');
+				
+				//pullout item if destination has already assigned
+				$old_data = $this->Cubicle_model->get_cubicle_info_by_id($cubicle_id);
+				$old_data[$this->router->fetch_class()] != 0 ? $this->pullout($old_data[$this->router->fetch_class()], FALSE) : NULL;
+				
 
 				$id = $this->Headset_model->transfer($headset_id, $cubicle_id);
 
@@ -294,7 +299,7 @@ class Headset extends CI_Controller {
 		}
 	}
 
-	function pullout($headset_id)
+	function pullout($headset_id, $redirect = TRUE)
 	{
 		$return = $this->Headset_model->pull_out($headset_id);
 
@@ -302,7 +307,7 @@ class Headset extends CI_Controller {
 		{
 			$this->devicelog->insert_log($this->session->userdata('user_id'), $headset_id, 'headset', 'pullout', $return);
 				
-			redirect('/headset/view/'.$headset_id, 'refresh');
+			$redirect == TRUE ? redirect('/headset/view/'.$headset_id, 'refresh') : '';
 		}
 		else
 		{
