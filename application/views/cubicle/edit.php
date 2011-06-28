@@ -7,6 +7,7 @@
 						$cubicle_name = array(
 							'name'	=>	'cubicle_name',
 							'id'	=>	'cubicle_name',
+							'readonly' => true,
 							'value'	=>	$row->name
 						);
 						
