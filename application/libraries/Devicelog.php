@@ -90,9 +90,13 @@ class Devicelog {
 			//format preposition to be display
 			$preposition = ($row->process == 'assign' || $row->process == 'swap' || $row->process == 'transfer') ? 'to' : ($row->process == 'pullout' ? 'from' : '');
 				
+			//display cubicle if applicable.
 			$cubicle = $row->cubicle_id != 0 ? anchor('cubicle/view/'.$row->cubicle_id,$row->cubicle_name) : NULL;
-			//display cubicle if applicable
-			$this->CI->table->add_row($row->log_id, '<strong>'.$row->username.'</strong>'.' '.$operation.' '.anchor($row->device.'/view/'.$row->device_id,$row->device.' ['.$row->device_name.'] ').$preposition.' '.$cubicle, $row->log_date);
+			
+			//remove hyperlink if operation was DELETE
+			$device = $row->process == 'delete' ? '<strong>'.$row->device.' ['.$row->device_name.']<strong>' : anchor($row->device.'/view/'.$row->device_id,$row->device.' ['.$row->device_name.'] ');
+			
+			$this->CI->table->add_row($row->log_id, '<strong>'.$row->username.'</strong>'.' '.$operation.' '.$device.' '.$preposition.' '.$cubicle, $row->log_date);
 		}
 		echo $this->CI->table->generate();
 

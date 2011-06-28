@@ -120,9 +120,8 @@ Class Cubicle extends CI_Controller {
 
 		$info = $this->Cubicle_model->get_cubicle_info($cubicle_id);
 		$comments = $this->Cubicle_model->get_comments($cubicle_id);
-		$logs = $this->Globals_model->get_item_logs($cubicle_id, 'cubicle');
 
-		$data = array('info' => $info, 'comments' => $comments, 'logs' => $logs);
+		$data = array('info' => $info, 'comments' => $comments);
 
 		$this->load->view('template',array('page'=>'cubicle/view', 'data'=>$data));
 
