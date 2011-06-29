@@ -111,6 +111,10 @@ class CPU extends CI_Controller {
 		else
 		{
 			$cpu_id = $this->input->post('cpu_id');
+			
+			//pullout item if current location has already assigned
+			$old_data = $this->Cubicle_model->get_cubicle_info_by_id($location);
+			$old_data[$this->router->fetch_class()] != 0 ? $this->pullout($old_data[$this->router->fetch_class()], FALSE) : NULL;
 				
 			$id = $this->CPU_model->assign_cpu($cpu_id, $location);
 				

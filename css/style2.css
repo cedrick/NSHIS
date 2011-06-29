@@ -358,4 +358,38 @@ ul.icons span.ui-icon {float: left; margin: 0 4px;}
 	text-align: justify;
 	border-bottom:solid thin #c8c8c8
 }
+
+/* Logs and Comments styles */
+#log_content {
+	font-size: 14px;
+}
+	.log_comments {
+		font-size: 12px;
+		margin-left: 20px;
+	}
+		.comments {
+			background-color: #EDEFF4;
+			padding: 3px 10px;
+			margin: 3px;
+		}
+		
+			textarea {
+				width: 100%;
+				border: 1px solid #cccccc;
+				font-family: Tahoma, sans-serif;
+				font-size: 12px;
+				padding: 2px 0px 0px 5px;;
+			}
 	
+	.log-wrapper {
+		margin-bottom: 10px;
+	}
+
+.isDate {
+	color: #646464;
+	font-size: 11px;
+}
+
+.comment_btn {
+	color: #3B3F9F;
+}

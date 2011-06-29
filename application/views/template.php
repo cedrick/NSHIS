@@ -4,7 +4,9 @@
 		<title>Northstar Solutions - Hardware Inventory System</title>
 		<link type="text/css" href="<?php echo base_url() ?>css/style2.css" rel="stylesheet" />  
 		<link type="text/css" href="<?php echo base_url() ?>calendar/cwcalendar.css" rel="stylesheet" />
-		<script type="text/javascript" src="<?php echo base_url() ?>calendar/calendar.js"></script> 
+		<script type="text/javascript" src="<?php echo base_url() ?>calendar/calendar.js"></script>
+		<script type="text/javascript" src="<?php echo base_url() ?>jquery/jquery-1.6.1.min.js"></script>  
+		<script type="text/javascript" src="<?php echo base_url() ?>jquery/plugins/jquery.autogrowtextarea.js"></script>  
 	</head>
 	<body>
 		<div id="content">

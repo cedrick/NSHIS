@@ -47,6 +47,7 @@
 						</div>
 					</div>
 					
+					<!--
 					<div class="section width500" >
 						<div class="sectionHeader">Comments</div>
 						<div class="sectionBody">
@@ -69,9 +70,14 @@
 						?>
 						</div>
 					</div>
+					-->
+					
 					<div class="section width700" >
 						<div class="sectionHeader">Logs</div>
 						<div class="sectionBody">
+							<script type="text/javascript">
+								
+							</script>
 							<?php 
 								//get parent class
 								$class = $this->router->fetch_class();

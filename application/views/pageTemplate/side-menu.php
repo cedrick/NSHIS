@@ -5,7 +5,7 @@
 									if ($this->uri->segment(2) == 'view')
 									{
 										echo '<li>'.anchor($this->uri->segment(1).'/edit/'.$this->uri->segment(3), 'Edit').'</li>';
-										echo '<li>'.anchor($this->uri->segment(1).'/comment/'.$this->uri->segment(3), 'Add Comment').'</li>';
+										//echo '<li>'.anchor($this->uri->segment(1).'/comment/'.$this->uri->segment(3), 'Add Comment').'</li>';
 										if ($this->uri->segment(1) != 'cubicle')
 										{
 										  if($this->uri->segment(1) == 'usb_headset')
