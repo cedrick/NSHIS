@@ -43,15 +43,18 @@ class Devicelog {
 	 * @param	string	unique device id
 	 * @param 	string	type of device
 	 */
-	function generate_logs($device_id, $device_type)
+	function generate_logs($device_id, $device_type, $date_filter = NULL)
 	{
 		$this->CI->db->select('*, DATE_FORMAT(nshis_logs.cdate, "%M %e, %Y %l:%i %p") as log_date', FALSE);
 		$this->CI->db->from('nshis_logs');
 		$this->CI->db->join('nshis_users', 'nshis_logs.user_id = nshis_users.ID');
 		
-		//no condition if it was requested by stats controller and limit the result to 100.. VIEW ALL LOGS
-		if ($device_type != 'stats') {
+		//no condition if it was requested by stats controller and limit the result to 50.. VIEW ALL LOGS
+		if ($device_type != 'stats' and $device_type != 'date') {
 			$device_type == 'cubicle' ? $this->CI->db->where('nshis_logs.cubicle_id', $device_id) : $this->CI->db->where(array('nshis_logs.device_id' => $device_id,'nshis_logs.device' => $device_type));
+		}
+		else if ($device_type == 'date') {
+			$this->CI->db->where("date_format(nshis_logs.cdate, '%m/%d/%Y') = '" . $date_filter . "'");
 		}
 		else {
 			$this->CI->db->limit(50);
@@ -85,10 +88,9 @@ class Devicelog {
 				$(".hidden_first").blur(function() {
 				  $(this).hide();
 				});
-								
 	
 				$(".comment_btn").click(function() {
-					$("#ta_" + $(this).attr("id")).toggle();
+					$("#ta_" + $(this).attr("id")).show();
 					$("#ta_" + $(this).attr("id")).focus();
 					return false;
 				});

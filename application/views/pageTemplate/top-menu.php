@@ -31,6 +31,7 @@
 									<li><a href="<?php echo base_url();?>ups/viewall">UPS</a></li>
 							 </ul>
 						  </li>
+						  <li><a href="<?php echo base_url();?>log/daily">Logs</a></li>
 						  <li><a href="<?php echo base_url();?>search">Search</a></li>
 							<li><a href="<?php echo base_url(); ?>user/logout/">Logout</a></li>
 						</ul>
