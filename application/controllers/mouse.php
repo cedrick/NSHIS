@@ -68,6 +68,10 @@ class Mouse extends CI_Controller {
 		else
 		{
 			$mouse_id = $this->input->post('mouse_id');
+			
+			//pullout item if current location has already assigned
+			$old_data = $this->Cubicle_model->get_cubicle_info_by_id($location);
+			$old_data[$this->router->fetch_class()] != 0 ? $this->pullout($old_data[$this->router->fetch_class()], FALSE) : NULL;
 				
 			$id = $this->Mouse_model->assign_mouse($mouse_id, $location);
 				

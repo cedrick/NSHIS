@@ -68,6 +68,10 @@ class Connector extends CI_Controller {
 		else
 		{
 			$connector_id = $this->input->post('connector_id');
+			
+			//pullout item if current location has already assigned
+			$old_data = $this->Cubicle_model->get_cubicle_info_by_id($location);
+			$old_data[$this->router->fetch_class()] != 0 ? $this->pullout($old_data[$this->router->fetch_class()], FALSE) : NULL;
 				
 			$id = $this->Connector_model->assign_connector($connector_id, $location);
 				

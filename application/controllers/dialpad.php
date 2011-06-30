@@ -68,7 +68,11 @@ class Dialpad extends CI_Controller {
 		else
 		{
 			$dialpad_id = $this->input->post('dialpad_id');
-				
+			
+			//pullout item if current location has already assigned
+			$old_data = $this->Cubicle_model->get_cubicle_info_by_id($location);
+			$old_data[$this->router->fetch_class()] != 0 ? $this->pullout($old_data[$this->router->fetch_class()], FALSE) : NULL;
+			
 			$id = $this->Dialpad_model->assign_dialpad($dialpad_id, $location);
 				
 			if ($id)

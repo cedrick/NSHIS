@@ -68,6 +68,10 @@ class Keyboard extends CI_Controller {
 		else
 		{
 			$keyboard_id = $this->input->post('keyboard_id');
+			
+			//pullout item if current location has already assigned
+			$old_data = $this->Cubicle_model->get_cubicle_info_by_id($location);
+			$old_data[$this->router->fetch_class()] != 0 ? $this->pullout($old_data[$this->router->fetch_class()], FALSE) : NULL;
 				
 			$id = $this->Keyboard_model->assign_keyboard($keyboard_id, $location);
 				
