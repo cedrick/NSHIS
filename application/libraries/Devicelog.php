@@ -82,6 +82,10 @@ class Devicelog {
 				
 				$("textarea").autoGrow();
 				$(".hidden_first").hide();
+				$(".hidden_first").blur(function() {
+				  $(this).hide();
+				});
+								
 	
 				$(".comment_btn").click(function() {
 					$("#ta_" + $(this).attr("id")).css("display", "inline");
