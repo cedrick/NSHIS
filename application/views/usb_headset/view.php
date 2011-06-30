@@ -28,29 +28,6 @@
 							 </table>
 						</div>
 					</div>
-					
-					<div class="section width500" >
-						<div class="sectionHeader">Comments</div>
-						<div class="sectionBody">
-						<?php 
-							if ($data['comments'])
-							{
-								
-								foreach ($data['comments']->result() as $row2)
-								{
-									echo "
-										<div id='comments'>
-											<div>
-												<div class='comments-head'><span class='post-by'>".$row2->username."</span><span class='post-date'>".$row2->cdate."</span></div>
-												<div class='comments-body'>".$row2->comment."</div>
-											</div>
-										</div>
-									";
-								}
-							}
-						?>
-						</div>
-					</div>
 					<div class="section width700" >
 						<div class="sectionHeader">Logs</div>
 						<div class="sectionBody">

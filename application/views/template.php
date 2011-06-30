@@ -33,15 +33,7 @@
 							}
 							else 
 							{
-								if (isset($comments))
-								{
-									$this->load->view($page, $data, $comments);
-								}
-								else 
-								{
-									$this->load->view($page, $data);	
-								}
-								
+								$this->load->view($page, $data);	
 							}
 						}
 					?>
