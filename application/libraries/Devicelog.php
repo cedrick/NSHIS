@@ -73,63 +73,48 @@ class Devicelog {
 	private function generate_table($query_result)
 	{
 		$this->CI->table->set_heading('Trace ID', 'Description', 'Date');
+		
 		//javascript
-		/*echo '
-							<script type="text/javascript">
-								$(document).ready(function(){
-								    $("textarea").autoGrow();
-
-								    $(".comment_btn").click(function(){
-										$("#ta_" + $(this).attr("id")).css("display", "inline");
-								    	$("textarea").autoGrow();
-										$("#ta_" + $(this).attr("id")).focus();
-									    return false;
-									});
-								});
-							</script>
-		
-		';*/
-		//parent wrapper
-		
 		echo '
 		<script type="text/javascript">
 			$(document).ready(function() {
 				var base_url = "'.base_url().'";
+				
 				$("textarea").autoGrow();
+				$(".hidden_first").hide();
 	
 				$(".comment_btn").click(function() {
-					$("#li_" + $(this).attr("id")).css("display", "inline");
-					$("#ta_" + $(this).attr("id")).autoGrow();
+					$("#ta_" + $(this).attr("id")).css("display", "inline");
 					$("#ta_" + $(this).attr("id")).focus();
 					return false;
 				});
 	
 				$("textarea").keypress(
-						function(event) {
-							if (event.keyCode == 13 && event.shiftKey) {
-								var content = this.value;
-								var caret = getCaret(this);
-								this.value = content.substring(0, caret)
-										+ "\n"
-										+ content.substring(carent,
-												content.length - 1);
-								event.stopPropagation();
-	
-							} else if (event.keyCode == 13
-									&& $.trim($(this).val().length) > 0) {
-								var logid = $(this).attr("id");
-								$.post(base_url + "comment/add", {
-									log_id : logid.substring(3),
-									comment : $(this).val()
-								}, function() {
-									window.location.reload(true);
-								});
-	
-							} else if (event.keyCode == 13
-									&& $.trim($(this).val().length == 0)) {
-								return false;
-							}
-						});
+					function(event) {
+						if (event.keyCode == 13 && event.shiftKey) {
+							var content = this.value;
+							var caret = getCaret(this);
+							this.value = content.substring(0, caret)
+									+ "\n"
+									+ content.substring(carent,
+											content.length - 1);
+							event.stopPropagation();
+
+						} else if (event.keyCode == 13 && $.trim($(this).val().length) > 0) {
+							$(this).attr("disabled", true);
+							var logid = $(this).attr("id");
+							$.post(base_url + "comment/add", {
+								log_id : logid.substring(3),
+								comment : $(this).val()
+							}, function() {
+								window.location.reload(true);
+							});
+						} else if (event.keyCode == 13
+								&& $.trim($(this).val().length == 0)) {
+							return false;
+						}
+					});
+				
 				function getCaret(el) {
 					if (el.selectionStart) {
 						return el.selectionStart;
@@ -144,13 +129,15 @@ class Devicelog {
 						var re = el.createTextRange(), rc = re.duplicate();
 						re.moveToBookmark(r.getBookmark());
 						rc.setEndPoint("EndToStart", re);
-	
+						
 						return rc.text.length;
 					}
 					return 0;
 				}
 			});
 		</script>';
+		
+		//parent wrapper
 		echo '<div id="log_content">';
 		
 		foreach ($query_result->result() as $row)
@@ -208,10 +195,10 @@ class Devicelog {
 			}
 			if ($query_comment->num_rows() == 0)
 			{
-				echo '<li id="li_'.$row->log_id.'" style="display: none;"><ul class="comments"><textarea cols="96" rows="1" id="ta_'.$row->log_id.'"></textarea></ul></li></ul></div></div>';
+				echo '<li id="li_'.$row->log_id.'" ><ul class="comments"><textarea cols="115" rows="1" id="ta_'.$row->log_id.'" class="hidden_first"></textarea></ul></li></ul></div></div>';
 			}
 			else {
-				echo '<li><ul class="comments"><textarea cols="96" rows="1" id="ta_'.$row->log_id.'"></textarea></ul></li></ul></div></div>';
+				echo '<li><ul class="comments"><textarea cols="115" rows="1" id="ta_'.$row->log_id.'"></textarea></ul></li></ul></div></div>';
 			} 
 			//$this->CI->table->add_row($row->log_id, '<strong>'.$row->username.'</strong>'.' '.$operation.' '.$device.' '.$preposition.' '.$cubicle, $row->log_date);
 		}
