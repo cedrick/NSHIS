@@ -88,7 +88,7 @@ class Devicelog {
 								
 	
 				$(".comment_btn").click(function() {
-					$("#ta_" + $(this).attr("id")).css("display", "inline");
+					$("#ta_" + $(this).attr("id")).toggle();
 					$("#ta_" + $(this).attr("id")).focus();
 					return false;
 				});
@@ -193,7 +193,7 @@ class Devicelog {
 			foreach ($query_comment->result() as $row_comment)
 			{
 				echo '<li><ul class="comments">';
-				echo '<li>'.strtoupper($row_comment->username).': '.$row_comment->comment.'</li>';
+				echo '<li><strong>'.strtoupper($row_comment->username).'</strong>: '.$row_comment->comment.'</li>';
 				echo '<li class="isDate">'.$row_comment->comment_date.'</li>';
 				echo '</ul></li>';
 			}

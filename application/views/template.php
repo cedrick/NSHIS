@@ -5,7 +5,9 @@
 		<link type="text/css" href="<?php echo base_url() ?>css/style2.css" rel="stylesheet" />  
 		<link type="text/css" href="<?php echo base_url() ?>calendar/cwcalendar.css" rel="stylesheet" />
 		<script type="text/javascript" src="<?php echo base_url() ?>calendar/calendar.js"></script>
-		<script type="text/javascript" src="<?php echo base_url() ?>jquery/jquery-1.6.1.min.js"></script>  
+		<script type="text/javascript" src="<?php echo base_url() ?>jquery/jquery-ui/js/jquery-1.6.1.min.js"></script>
+		<script type="text/javascript" src="<?php echo base_url() ?>jquery/jquery-ui/js/jquery-ui-1.8.14.custom.min.js"></script>
+		<link type="text/css" href="<?php echo base_url() ?>jquery/jquery-ui/css/custom-theme/jquery-ui-1.8.14.custom.css" rel="stylesheet" />  
 		<script type="text/javascript" src="<?php echo base_url() ?>jquery/plugins/jquery.autogrowtextarea.js"></script>  
 	</head>
 	<body>
