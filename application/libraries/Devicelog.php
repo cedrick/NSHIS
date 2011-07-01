@@ -109,9 +109,10 @@ class Devicelog {
 						} else if (event.keyCode == 13 && $.trim($(this).val()).length > 0) {
 							$(this).attr("disabled", true);
 							var logid = $(this).attr("id");
+							mytext = $(this).val().replace(/(\r\n)|(\n)/g,"<br />"); 
 							$.post(base_url + "comment/add", {
 								log_id : logid.substring(3),
-								comment : $(this).val()
+								comment : mytext
 							}, function() {
 								window.location.reload(true);
 							});
