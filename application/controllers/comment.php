@@ -13,7 +13,6 @@ class Comment extends CI_Controller {
 
 	function add()
 	{
-		
 		$this->Comment_model->add($_POST['log_id'], $_POST['comment']);
 	}
 	

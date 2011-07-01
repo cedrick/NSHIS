@@ -141,34 +141,13 @@ class Mouse extends CI_Controller {
 		}
 	}
 
-	function delete($mouse_id)
+	function delete()
 	{
-		$this->form_validation->set_rules('delete', 'Delete', 'trim|required|xss_clean');
-
-		if($this->form_validation->run() == FALSE)
+		if($_POST['my_device_id'] != '' || $_POST['my_device_id'] != NULL)
 		{
-			$data = $this->Mouse_model->get_mouse_info($mouse_id);
-			$this->load->view('template',array('page'=>'mouse/delete', 'data' => $data));
-		}
-		else
-		{
-			$delete = $this->input->post('delete');
-				
-			if($delete=='no')
-			{
-				redirect('/mouse/view/' . $mouse_id, 'refresh');
-			}
-			else
-			{
-				$id = $this->Mouse_model->delete_mouse($mouse_id);
-
-				if ($id)
-				{
-					$this->devicelog->insert_log($this->session->userdata('user_id'), $id, 'mouse', 'delete');
-						
-					redirect('/mouse/viewall', 'refresh');
-				}
-			}
+			$this->devicelog->insert_log($this->session->userdata('user_id'), $_POST['my_device_id'], 'mouse', 'delete');
+			
+			$id = $this->Mouse_model->delete_mouse($_POST['my_device_id']);
 		}
 	}
 

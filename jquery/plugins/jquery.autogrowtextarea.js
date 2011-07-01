@@ -44,7 +44,6 @@ jQuery.fn.autoGrow = function(){
 			temp2 = obj.offsetWidth;
 			characterWidth = temp2 - temp1;
 			obj.cols = tempCols;
-			
 			return characterWidth;
 		}
 		
@@ -52,7 +51,8 @@ jQuery.fn.autoGrow = function(){
 		this.style.width = "auto";
 		this.style.height = "auto";
 		this.style.overflow = "hidden";
-		this.style.width = ((characterWidth(this) * this.cols) + 6) + "px";
+		//this.style.width = ((characterWidth(this) * this.cols) + 6) + "px"; //pending: width of textarea was not consistent using this
+		this.style.width = ((5 * this.cols) + 6) + "px";
 		this.onkeyup = grow;
 		this.onfocus = grow;
 		this.onblur = grow;

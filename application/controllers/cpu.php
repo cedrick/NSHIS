@@ -242,7 +242,18 @@ class CPU extends CI_Controller {
 			echo "Cannot edit empty cpu. Please go back into your previous page.";
 		}
 	}
+	
+	function delete()
+	{
+		if($_POST['my_device_id'] != '' || $_POST['my_device_id'] != NULL)
+		{
+			$this->devicelog->insert_log($this->session->userdata('user_id'), $_POST['my_device_id'], 'cpu', 'delete');
+			
+			$id = $this->CPU_model->delete_cpu($_POST['my_device_id']);
+		}
+	}
 
+	/*
 	function delete($cpu_id)
 	{
 		$this->form_validation->set_rules('delete', 'Delete', 'trim|required|xss_clean');
@@ -273,7 +284,8 @@ class CPU extends CI_Controller {
 			}
 		}
 	}
-
+	*/
+	
 	function transfer($cpu_id = NULL)
 	{
 		if (isset($cpu_id))

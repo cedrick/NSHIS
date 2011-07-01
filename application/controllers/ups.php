@@ -141,34 +141,13 @@ class Ups extends CI_Controller {
 		}
 	}
 
-	function delete($ups_id)
+	function delete()
 	{
-		$this->form_validation->set_rules('delete', 'Delete', 'trim|required|xss_clean');
-
-		if($this->form_validation->run() == FALSE)
+		if($_POST['my_device_id'] != '' || $_POST['my_device_id'] != NULL)
 		{
-			$data = $this->Ups_model->get_ups_info($ups_id);
-			$this->load->view('template',array('page'=>'ups/delete', 'data' => $data));
-		}
-		else
-		{
-			$delete = $this->input->post('delete');
-				
-			if($delete=='no')
-			{
-				redirect('/ups/view/' . $ups_id, 'refresh');
-			}
-			else
-			{
-				$id = $this->Ups_model->delete_ups($ups_id);
-
-				if ($id)
-				{
-					$this->devicelog->insert_log($this->session->userdata('user_id'), $id, 'ups', 'delete');
-						
-					redirect('/ups/viewall', 'refresh');
-				}
-			}
+			$this->devicelog->insert_log($this->session->userdata('user_id'), $_POST['my_device_id'], 'ups', 'delete');
+			
+			$id = $this->Ups_model->delete_ups($_POST['my_device_id']);
 		}
 	}
 

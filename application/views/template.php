@@ -43,5 +43,8 @@
 				<?php $this->load->view('pageTemplate/footer'); ?>
 			</div>
 		</div>
+		<div id="dialog-confirm" title="Delete Item">
+			<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>These item will be permanently deleted and cannot be undone. Are you sure?</p>
+		</div>
 	</body>
 </html>

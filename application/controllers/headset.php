@@ -141,34 +141,13 @@ class Headset extends CI_Controller {
 		}
 	}
 
-	function delete($headset_id)
+	function delete()
 	{
-		$this->form_validation->set_rules('delete', 'Delete', 'trim|required|xss_clean');
-
-		if($this->form_validation->run() == FALSE)
+		if($_POST['my_device_id'] != '' || $_POST['my_device_id'] != NULL)
 		{
-			$data = $this->Headset_model->get_headset_info($headset_id);
-			$this->load->view('template',array('page'=>'headset/delete', 'data' => $data));
-		}
-		else
-		{
-			$delete = $this->input->post('delete');
-				
-			if($delete=='no')
-			{
-				redirect('/headset/view/' . $headset_id, 'refresh');
-			}
-			else
-			{
-				$id = $this->Headset_model->delete_headset($headset_id);
-
-				if ($id)
-				{
-					$this->devicelog->insert_log($this->session->userdata('user_id'), $id, 'headset', 'delete');
-						
-					redirect('/headset/viewall', 'refresh');
-				}
-			}
+			$this->devicelog->insert_log($this->session->userdata('user_id'), $_POST['my_device_id'], 'headset', 'delete');
+			
+			$id = $this->Headset_model->delete_headset($_POST['my_device_id']);
 		}
 	}
 

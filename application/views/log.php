@@ -26,7 +26,7 @@
 						</div>
 					</div>
 					<div class="section width700" >
-						<div class="sectionHeader">Logs</div>
+						<div class="sectionHeader">Logs for <?php echo $data['date']; ?></div>
 						<div class="sectionBody">
 							<?php 
 								//get parent class

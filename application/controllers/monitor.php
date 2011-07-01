@@ -141,34 +141,13 @@ class Monitor extends CI_Controller {
 		}
 	}
 
-	function delete($monitor_id)
+	function delete()
 	{
-		$this->form_validation->set_rules('delete', 'Delete', 'trim|required|xss_clean');
-
-		if($this->form_validation->run() == FALSE)
+		if($_POST['my_device_id'] != '' || $_POST['my_device_id'] != NULL)
 		{
-			$data = $this->Monitor_model->get_monitor_info($monitor_id);
-			$this->load->view('template',array('page'=>'monitor/delete', 'data' => $data));
-		}
-		else
-		{
-			$delete = $this->input->post('delete');
-				
-			if($delete=='no')
-			{
-				redirect('/monitor/view/' . $monitor_id, 'refresh');
-			}
-			else
-			{
-				$id = $this->Monitor_model->delete_monitor($monitor_id);
-
-				if ($id)
-				{
-					$this->devicelog->insert_log($this->session->userdata('user_id'), $id, 'monitor', 'delete');
-						
-					redirect('/monitor/viewall', 'refresh');
-				}
-			}
+			$this->devicelog->insert_log($this->session->userdata('user_id'), $_POST['my_device_id'], 'monitor', 'delete');
+			
+			$id = $this->Monitor_model->delete_monitor($_POST['my_device_id']);
 		}
 	}
 

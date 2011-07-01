@@ -25,7 +25,7 @@
 					?>
 					
 					<div class="section width700" >
-            <div class="sectionHeader">Logs</div>
+            <div class="sectionHeader">Recent Logs</div>
             <div class="sectionBody">
               <?php 
 	              //get parent class

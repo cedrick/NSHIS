@@ -106,7 +106,7 @@ class Devicelog {
 											content.length - 1);
 							event.stopPropagation();
 
-						} else if (event.keyCode == 13 && $.trim($(this).val().length) > 0) {
+						} else if (event.keyCode == 13 && $.trim($(this).val()).length > 0) {
 							$(this).attr("disabled", true);
 							var logid = $(this).attr("id");
 							$.post(base_url + "comment/add", {
@@ -166,7 +166,7 @@ class Devicelog {
 			$cubicle = $row->cubicle_id != 0 ? anchor('cubicle/view/'.$row->cubicle_id,$row->cubicle_name) : NULL;
 			
 			//remove hyperlink if operation was DELETE
-			$device = $row->process == 'delete' ? '<strong>'.$row->device.' ['.$row->device_name.']<strong>' : anchor($row->device.'/view/'.$row->device_id,$row->device.' ['.$row->device_name.'] ');
+			$device = $row->process == 'delete' ? '<strong>'.$row->device.' ['.$row->device_name.']</strong>' : anchor($row->device.'/view/'.$row->device_id,$row->device.' ['.$row->device_name.'] ');
 			
             //log wrapper
             echo '<div class="log-wrapper">';

@@ -141,34 +141,13 @@ class Dialpad extends CI_Controller {
 		}
 	}
 
-	function delete($dialpad_id)
+	function delete()
 	{
-		$this->form_validation->set_rules('delete', 'Delete', 'trim|required|xss_clean');
-
-		if($this->form_validation->run() == FALSE)
+		if($_POST['my_device_id'] != '' || $_POST['my_device_id'] != NULL)
 		{
-			$data = $this->Dialpad_model->get_dialpad_info($dialpad_id);
-			$this->load->view('template',array('page'=>'dialpad/delete', 'data' => $data));
-		}
-		else
-		{
-			$delete = $this->input->post('delete');
-				
-			if($delete=='no')
-			{
-				redirect('/dialpad/view/' . $dialpad_id, 'refresh');
-			}
-			else
-			{
-				$id = $this->Dialpad_model->delete_dialpad($dialpad_id);
-
-				if ($id)
-				{
-					$this->devicelog->insert_log($this->session->userdata('user_id'), $id, 'dialpad', 'delete');
-						
-					redirect('/dialpad/viewall', 'refresh');
-				}
-			}
+			$this->devicelog->insert_log($this->session->userdata('user_id'), $_POST['my_device_id'], 'dialpad', 'delete');
+			
+			$id = $this->Dialpad_model->delete_dialpad($_POST['my_device_id']);
 		}
 	}
 

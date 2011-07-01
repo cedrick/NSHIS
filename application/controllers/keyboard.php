@@ -141,34 +141,13 @@ class Keyboard extends CI_Controller {
 		}
 	}
 
-	function delete($keyboard_id)
+	function delete()
 	{
-		$this->form_validation->set_rules('delete', 'Delete', 'trim|required|xss_clean');
-
-		if($this->form_validation->run() == FALSE)
+		if($_POST['my_device_id'] != '' || $_POST['my_device_id'] != NULL)
 		{
-			$data = $this->Keyboard_model->get_keyboard_info($keyboard_id);
-			$this->load->view('template',array('page'=>'keyboard/delete', 'data' => $data));
-		}
-		else
-		{
-			$delete = $this->input->post('delete');
-				
-			if($delete=='no')
-			{
-				redirect('/keyboard/view/' . $keyboard_id, 'refresh');
-			}
-			else
-			{
-				$id = $this->Keyboard_model->delete_keyboard($keyboard_id);
-
-				if ($id)
-				{
-					$this->devicelog->insert_log($this->session->userdata('user_id'), $id, 'keyboard', 'delete');
-						
-					redirect('/keyboard/viewall', 'refresh');
-				}
-			}
+			$this->devicelog->insert_log($this->session->userdata('user_id'), $_POST['my_device_id'], 'keyboard', 'delete');
+			
+			$id = $this->Keyboard_model->delete_keyboard($_POST['my_device_id']);
 		}
 	}
 
