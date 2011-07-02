@@ -148,8 +148,15 @@ class Usb_headset extends CI_Controller {
 		}
 	}
 
-	function delete($usb_headset_id)
+	function delete()
 	{
+		if($_POST['my_device_id'] != '' || $_POST['my_device_id'] != NULL)
+		{
+			$this->devicelog->insert_log($this->session->userdata('user_id'), $_POST['my_device_id'], 'usb_headset', 'delete');
+			
+			$id = $this->Usb_headset_model->delete_usb_headset($_POST['my_device_id']);
+		}
+		/*
 		$this->form_validation->set_rules('delete', 'Delete', 'trim|required|xss_clean');
 
 		if($this->form_validation->run() == FALSE)
@@ -177,6 +184,7 @@ class Usb_headset extends CI_Controller {
 				}
 			}
 		}
+		*/
 	}
 
 	function viewall()
@@ -202,7 +210,7 @@ class Usb_headset extends CI_Controller {
 			}
 			else
 			{
-				$usb_headset_assignto = $this->input->post('usb_headset_assignto');
+				$usb_headset_assignto = preg_replace('/\s{2,}/',' ', $this->input->post('usb_headset_assignto'));
 
 				$success = $this->Usb_headset_model->assign_usb_headset($usb_headset_id, $usb_headset_assignto);
 
@@ -268,7 +276,7 @@ class Usb_headset extends CI_Controller {
 
 	function name_exist($name)
 	{
-		$info = $this->Usb_headset_model->is_assigned_unique($name);
+		$info = $this->Usb_headset_model->is_assigned_unique(preg_replace('/\s{2,}/',' ', $name));
 		if($info)
 		{
 			$row = $info->row();

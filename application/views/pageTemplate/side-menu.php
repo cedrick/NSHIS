@@ -37,11 +37,11 @@
 		<li><a href="<?php echo base_url();?>cubicle/viewall">View All Cubicles</a></li>
 	</ul>
 	<?php
-	if ($this->uri->segment(2) == 'view' || $this->uri->segment(2) == 'edit')
+	if ($this->uri->segment(2) == 'view' || $this->uri->segment(2) == 'edit' || $this->uri->segment(2) == 'assign' && $this->uri->segment(1) == 'usb_headset')
 	{
 		echo '
 			<br /><br />
-			<a href="#">'.strtoupper($this->uri->segment(1)).'</a><br />
+			<a href="#">ITEM</a><br />
 			<ul>
 		';
 		echo '<li>'.anchor($this->uri->segment(1).'/view/'.$this->uri->segment(3), 'Info').'</li>';
@@ -58,7 +58,16 @@
 			}
 
 		}
-		echo '<li><a href="#" class="delete_btn" id="'.$this->uri->segment(3).'">Delete</a></li>';
+		echo '<li><a href="#" class="delete_btn" id="'.$this->uri->segment(3).'">Delete</a></li></ul>';
+		
+		echo '
+			<br /><br />
+			<a href="#">'.strtoupper($this->uri->segment(1)).'</a><br />
+			<ul>
+		';
+		echo '<li>'.anchor($this->uri->segment(1).'/add/', 'Add New').'</li>';
+		echo '<li>'.anchor($this->uri->segment(1).'/viewall/', 'View All').'</li>';
+		
 	}
 
 	?>

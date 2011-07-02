@@ -163,8 +163,8 @@ class Devicelog {
 			//format preposition to be display
 			$preposition = ($row->process == 'assign' || $row->process == 'swap' || $row->process == 'transfer') ? 'to' : ($row->process == 'pullout' ? 'from' : '');
 				
-			//display cubicle if applicable.
-			$cubicle = $row->cubicle_id != 0 ? anchor('cubicle/view/'.$row->cubicle_id,$row->cubicle_name) : NULL;
+			//display cubicle or assigned USB headset if applicable.
+			$cubicle = $row->cubicle_id != 0 ? anchor('cubicle/view/'.$row->cubicle_id,$row->cubicle_name) : ($row->usb_headset_assignment != NULL ? $row->usb_headset_assignment : NULL);
 			
 			//remove hyperlink if operation was DELETE
 			$device = $row->process == 'delete' ? '<strong>'.$row->device.' ['.$row->device_name.']</strong>' : anchor($row->device.'/view/'.$row->device_id,$row->device.' ['.$row->device_name.'] ');
@@ -202,10 +202,10 @@ class Devicelog {
 			}
 			if ($query_comment->num_rows() == 0)
 			{
-				echo '<li id="li_'.$row->log_id.'" ><ul class="comments"><textarea cols="115" rows="1" id="ta_'.$row->log_id.'" class="hidden_first"></textarea></ul></li></ul></div></div>';
+				echo '<li id="li_'.$row->log_id.'" ><ul class="comments"><textarea cols="115" id="ta_'.$row->log_id.'" class="hidden_first"></textarea></ul></li></ul></div></div>';
 			}
 			else {
-				echo '<li><ul class="comments"><textarea cols="115" rows="1" id="ta_'.$row->log_id.'"></textarea></ul></li></ul></div></div>';
+				echo '<li><ul class="comments"><textarea cols="115" id="ta_'.$row->log_id.'"></textarea></ul></li></ul></div></div>';
 			} 
 			//$this->CI->table->add_row($row->log_id, '<strong>'.$row->username.'</strong>'.' '.$operation.' '.$device.' '.$preposition.' '.$cubicle, $row->log_date);
 		}
