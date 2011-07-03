@@ -24,7 +24,7 @@
 										{
 											$cubicle_link = "";
 										}
-										echo "</td><td width=250px>".$row->other_name."</td><td width=250px>".$cubicle_link."</td><td>".anchor('headset/edit/'.$row->headset_id,'edit')." | ".anchor('headset/delete/'.$row->headset_id,'delete')."</td></tr>";
+										echo "</td><td width=250px>".$row->other_name."</td><td width=250px>".$cubicle_link."</td><td>".anchor('headset/edit/'.$row->headset_id,'edit')."</td></tr>";
 										$ctr ++;
 									}
 								}

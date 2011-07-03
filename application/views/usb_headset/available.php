@@ -18,7 +18,7 @@
   											}
   											echo "<tr $color><td width=35%>";
   											echo anchor('usb_headset/view/'.$row->usb_headset_id,$row->name);
-  											echo "</td><td width=40%>".$row->assigned_person."</td><td width=25%>".anchor('usb_headset/edit/'.$row->usb_headset_id,'edit')." | ".anchor('usb_headset/delete/'.$row->usb_headset_id,'delete')."</td></tr>";
+  											echo "</td><td width=40%>".$row->assigned_person."</td><td width=25%>".anchor('usb_headset/edit/'.$row->usb_headset_id,'edit')."</td></tr>";
   											$ctr ++;
   										}
   										else 

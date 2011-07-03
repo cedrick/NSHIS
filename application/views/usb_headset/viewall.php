@@ -16,7 +16,7 @@
 										}
 										echo "<tr $color><td>".($ctr+1)."</td><td width=150px>";
 										echo anchor('usb_headset/view/'.$row->usb_headset_id,$row->usb_headset_name);
-										echo "</td><td width=250px>".$row->other_name."</td><td width=250px>".$row->assigned_person."</td><td>".anchor('usb_headset/edit/'.$row->usb_headset_id,'edit')." | ".anchor('usb_headset/delete/'.$row->usb_headset_id,'delete')."</td></tr>";
+										echo "</td><td width=250px>".$row->other_name."</td><td width=250px>".$row->assigned_person."</td><td>".anchor('usb_headset/edit/'.$row->usb_headset_id,'edit')."</td></tr>";
 										$ctr ++;
 									}
 								}

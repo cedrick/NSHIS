@@ -26,7 +26,7 @@
 											{
 												$cubicle_link = "";
 											}
-											echo "</td><td width=40%>".$cubicle_link."</td><td width=25%>".anchor('dialpad/edit/'.$row->dialpad_id,'edit')." | ".anchor('dialpad/delete/'.$row->dialpad_id,'delete')."</td></tr>";
+											echo "</td><td width=40%>".$cubicle_link."</td><td width=25%>".anchor('dialpad/edit/'.$row->dialpad_id,'edit')."</td></tr>";
 											$ctr ++;
 										}
 										else 

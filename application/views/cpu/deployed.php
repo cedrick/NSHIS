@@ -26,7 +26,7 @@
 											{
 												$cubicle_link = "";
 											}
-											echo "</td><td width=30%>".$cubicle_link."</td><td width=15%>".anchor('cpu/edit/'.$row->cpu_id,'edit')." | ".anchor('cpu/delete/'.$row->cpu_id,'delete')."</td></tr>";
+											echo "</td><td width=30%>".$cubicle_link."</td><td width=15%>".anchor('cpu/edit/'.$row->cpu_id,'edit')."</td></tr>";
 											$ctr ++;
 										}
 										else 

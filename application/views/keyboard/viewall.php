@@ -24,7 +24,7 @@
 										{
 											$cubicle_link = "";
 										}
-										echo "</td><td width=250px>".$row->other_name."</td><td width=250px>".$cubicle_link."</td><td>".anchor('keyboard/edit/'.$row->keyboard_id,'edit')." | ".anchor('keyboard/delete/'.$row->keyboard_id,'delete')."</td></tr>";
+										echo "</td><td width=250px>".$row->other_name."</td><td width=250px>".$cubicle_link."</td><td>".anchor('keyboard/edit/'.$row->keyboard_id,'edit')."</td></tr>";
 										$ctr ++;
 									}
 								}
