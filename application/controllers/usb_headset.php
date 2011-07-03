@@ -59,9 +59,9 @@ class Usb_headset extends CI_Controller {
 	{
 		$info = $this->Usb_headset_model->get_usb_headset_info($usb_headset_id);
 		$comments = $this->Usb_headset_model->get_comments($usb_headset_id);
-		$logs = $this->Globals_model->get_item_logs($usb_headset_id, 'usb_headset');
+		//$logs = $this->Globals_model->get_item_logs($usb_headset_id, 'usb_headset');
 
-		$data = array('info' => $info, 'comments' => $comments, 'logs' => $logs);
+		$data = array('info' => $info, 'comments' => $comments);
 
 		$this->load->view('template',array('page'=>'usb_headset/view', 'data'=>$data));
 	}
