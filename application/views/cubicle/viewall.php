@@ -16,7 +16,7 @@
 										}
 										echo "<tr $color><td width=70%>";
 										echo anchor('cubicle/view/'.$row->cubicle_id,$row->name);
-										echo "</td><td width=30%>".anchor('cubicle/edit/'.$row->cubicle_id,'edit')." | ".anchor('cubicle/delete/'.$row->cubicle_id,'delete')."</td></tr>";
+										echo "</td><td width=30%>".anchor('cubicle/edit/'.$row->cubicle_id,'edit')."</td></tr>";
 										$ctr ++;
 									}
 								}
