@@ -4,7 +4,7 @@
 						
 						if ($data)
 						{
-							$cubicle_options = array();
+							$cubicle_options = array('' => '');
 							foreach ($data->result() as $row)
 							{
 								if ($this->uri->segment(3) == $row->mouse_id)
@@ -34,7 +34,7 @@
 										Destination:
 									</td>
 									<td width="70%">
-										<?php echo form_dropdown('cubicle_id', $cubicle_options);  ?>
+										<?php echo form_dropdown('cubicle_id', $cubicle_options, NULL , 'id="combobox"');  ?>
 									</td>
 								</tr>
 								<tr>

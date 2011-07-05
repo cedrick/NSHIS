@@ -4,7 +4,7 @@
 						
 						if ($data)
 						{
-							$connector_options = array();
+							$connector_options = array('' => '');
 							foreach ($data->result() as $row)
 							{
 								$array2 = array($row->connector_id => $row->name);
@@ -47,7 +47,7 @@
 									</td>
 									<td width="70%">
 										<?php
-											echo form_dropdown('connector_id', $connector_options); 
+											echo form_dropdown('connector_id', $connector_options, NULL , 'id="combobox"'); 
 										?>
 									</td>
 								</tr>

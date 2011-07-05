@@ -4,7 +4,7 @@
 						
 						if ($data)
 						{
-							$cpu_options = array();
+							$cpu_options = array('' => '');
 							foreach ($data->result() as $row)
 							{
 								$array2 = array($row->cpu_id => $row->name);
@@ -47,7 +47,7 @@
 									</td>
 									<td width="70%">
 										<?php
-											echo form_dropdown('cpu_id', $cpu_options); 
+											echo form_dropdown('cpu_id', $cpu_options, NULL , 'id="combobox"'); 
 										?>
 									</td>
 								</tr>

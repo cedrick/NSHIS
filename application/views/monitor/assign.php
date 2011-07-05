@@ -4,7 +4,7 @@
 						
 						if ($data)
 						{
-							$monitor_options = array();
+							$monitor_options = array('' => '');
 							foreach ($data->result() as $row)
 							{
 								$array2 = array($row->monitor_id => $row->name);
@@ -27,7 +27,6 @@
 						);
 											
 					?>
-					
 					<div class="section width400" >
 						<div class="sectionHeader">Assign Monitor</div>
 						<div class="sectionBody">
@@ -47,7 +46,7 @@
 									</td>
 									<td width="70%">
 										<?php
-											echo form_dropdown('monitor_id', $monitor_options); 
+											echo form_dropdown('monitor_id', $monitor_options, NULL , 'id="combobox"'); 
 										?>
 									</td>
 								</tr>

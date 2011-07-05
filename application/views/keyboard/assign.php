@@ -4,7 +4,7 @@
 						
 						if ($data)
 						{
-							$keyboard_options = array();
+							$keyboard_options = array('' => '');
 							foreach ($data->result() as $row)
 							{
 								$array2 = array($row->keyboard_id => $row->name);
@@ -47,7 +47,7 @@
 									</td>
 									<td width="70%">
 										<?php
-											echo form_dropdown('keyboard_id', $keyboard_options); 
+											echo form_dropdown('keyboard_id', $keyboard_options, NULL , 'id="combobox"'); 
 										?>
 									</td>
 								</tr>

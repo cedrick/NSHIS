@@ -4,7 +4,7 @@
 						
 						if ($data)
 						{
-							$mouse_options = array();
+							$mouse_options = array('' => '');
 							foreach ($data->result() as $row)
 							{
 								$array2 = array($row->mouse_id => $row->name);
@@ -47,7 +47,7 @@
 									</td>
 									<td width="70%">
 										<?php
-											echo form_dropdown('mouse_id', $mouse_options); 
+											echo form_dropdown('mouse_id', $mouse_options, NULL , 'id="combobox"'); 
 										?>
 									</td>
 								</tr>

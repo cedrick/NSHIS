@@ -4,7 +4,7 @@
 						
 						if ($data)
 						{
-							$headset_options = array();
+							$headset_options = array('' => '');
 							foreach ($data->result() as $row)
 							{
 								$array2 = array($row->headset_id => $row->name);
@@ -47,7 +47,7 @@
 									</td>
 									<td width="70%">
 										<?php
-											echo form_dropdown('headset_id', $headset_options); 
+											echo form_dropdown('headset_id', $headset_options, NULL , 'id="combobox"'); 
 										?>
 									</td>
 								</tr>

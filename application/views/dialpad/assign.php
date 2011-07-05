@@ -4,7 +4,7 @@
 						
 						if ($data)
 						{
-							$dialpad_options = array();
+							$dialpad_options = array('' => '');
 							foreach ($data->result() as $row)
 							{
 								$array2 = array($row->dialpad_id => $row->name);
@@ -47,7 +47,7 @@
 									</td>
 									<td width="70%">
 										<?php
-											echo form_dropdown('dialpad_id', $dialpad_options); 
+											echo form_dropdown('dialpad_id', $dialpad_options, NULL , 'id="combobox"'); 
 										?>
 									</td>
 								</tr>
