@@ -11,6 +11,18 @@
 									<td id="resultName" width="30%">Usb_headset Name</td><td><?php echo $row->usb_headset_name; ?></td>
 								</tr>
 								<tr>
+									<td id="resultName" width="30%">Status</td>
+									<td class="ui-state-highlight">
+										<?php 
+											//get parent class
+											$class = $this->router->fetch_class();
+											//generate id format
+											$id = $this->router->fetch_class().'_id';
+											echo $this->devicestatus->get_status($this->router->fetch_class(), $row->$id);
+										?>
+									</td>
+								</tr>
+								<tr>
 									<td id="resultName" width="30%">Other Name</td><td><?php echo $row->other_name; ?></td>
 								</tr>
 								<tr>

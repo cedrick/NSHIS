@@ -1,6 +1,6 @@
 <div id="logoContentHeader">
 	<div id="nslogo"></div>
-	<div id="titleText">NSHIS v1.0.0 RC</div>
+	<div id="titleText">NSHIS v1.0.2</div>
 </div>
 <div id="menuContentHeader">
 	<div class="menu">

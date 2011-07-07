@@ -16,7 +16,7 @@
 				overflow-y: auto;
 				overflow-x: hidden;
 				padding-right: 20px;
-				width: 162px;
+				width: 170px;
 			}
 			
 			.ui-autocomplete-loading {

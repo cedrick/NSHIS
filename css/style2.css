@@ -392,3 +392,24 @@ ul.icons span.ui-icon {float: left; margin: 0 4px;}
 .comment_btn {
 	color: #3B3F9F;
 }
+
+/* Status styles */
+.device-status {
+	color: black;
+}
+
+#change-status {
+	float:left;
+	margin-left: 10px;
+	text-decoration: underline;
+	font-style: italic;
+}
+#change-status:HOVER {
+	cursor: pointer;
+}
+
+.status-ok {
+	color:green;
+	font-weight: 900;
+}
+

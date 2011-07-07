@@ -83,7 +83,7 @@ class Devicelog {
 			$(document).ready(function() {
 				var base_url = "'.base_url().'";
 				
-				$("textarea").autoGrow();
+				$(".textarea-log").autoGrow();
 				$(".hidden_first").hide();
 				$(".hidden_first").blur(function() {
 				  $(this).hide();
@@ -95,7 +95,7 @@ class Devicelog {
 					return false;
 				});
 	
-				$("textarea").keypress(
+				$(".textarea-log").keypress(
 					function(event) {
 						if (event.keyCode == 13 && event.shiftKey) {
 							var content = this.value;
@@ -110,7 +110,7 @@ class Devicelog {
 							$(this).attr("disabled", true);
 							var logid = $(this).attr("id");
 							mytext = $(this).val().replace(/(\r\n)|(\n)/g,"<br />"); 
-							$.post(base_url + "comment/add", {
+							$.post(base_url + "ajax/comment_add", {
 								log_id : logid.substring(3),
 								comment : mytext
 							}, function() {
@@ -161,7 +161,7 @@ class Devicelog {
 			}
 				
 			//format preposition to be display
-			$preposition = ($row->process == 'assign' || $row->process == 'swap' || $row->process == 'transfer') ? 'to' : ($row->process == 'pullout' ? 'from' : '');
+			$preposition = ($row->process == 'assign' || $row->process == 'swap' || $row->process == 'transfer') ? 'to' : ($row->process == 'pullout' ? 'from' : 'from ' . '<strong>'.str_replace('to', '</strong>to<strong>', $row->status_change).'</strong>');
 				
 			//display cubicle or assigned USB headset if applicable.
 			$cubicle = $row->cubicle_id != 0 ? anchor('cubicle/view/'.$row->cubicle_id,$row->cubicle_name) : ($row->usb_headset_assignment != NULL ? $row->usb_headset_assignment : NULL);
@@ -202,10 +202,10 @@ class Devicelog {
 			}
 			if ($query_comment->num_rows() == 0)
 			{
-				echo '<li id="li_'.$row->log_id.'" ><ul class="comments"><textarea cols="115" id="ta_'.$row->log_id.'" class="hidden_first"></textarea></ul></li></ul></div></div>';
+				echo '<li id="li_'.$row->log_id.'" ><ul class="comments"><textarea cols="115" id="ta_'.$row->log_id.'" class="hidden_first textarea-log"></textarea></ul></li></ul></div></div>';
 			}
 			else {
-				echo '<li><ul class="comments"><textarea cols="115" id="ta_'.$row->log_id.'"></textarea></ul></li></ul></div></div>';
+				echo '<li><ul class="comments"><textarea cols="115" id="ta_'.$row->log_id.'" class="textarea-log"></textarea></ul></li></ul></div></div>';
 			} 
 			//$this->CI->table->add_row($row->log_id, '<strong>'.$row->username.'</strong>'.' '.$operation.' '.$device.' '.$preposition.' '.$cubicle, $row->log_date);
 		}
@@ -225,10 +225,10 @@ class Devicelog {
 	 * @param 	integer	cubicle id
 	 * @param 	integer	usb headset id
 	 */
-	function insert_log($user_id, $device_id, $device, $process, $cubicle_id = 0, $usb_headset_assigned = NULL)
+	function insert_log($user_id, $device_id, $device, $process, $cubicle_id = 0, $ex_info = NULL)
 	{
 		$cubicle_name = $cubicle_id != 0 ? $this->get_device_name($cubicle_id, 'cubicle') : NULL;
-
+		
 		$data = array(
 			'user_id'	=>	$user_id,
 			'process'	=>	$process,
@@ -236,9 +236,11 @@ class Devicelog {
 			'device'	=>	$device,
 			'device_name'	=>	$this->get_device_name($device_id, $device),
 			'cubicle_id' =>	$cubicle_id,
-			'cubicle_name' => $cubicle_name,
-			'usb_headset_assignment' => $usb_headset_assigned
+			'cubicle_name' => $cubicle_name
+			//'usb_headset_assignment' => $usb_headset_assigned
 		);
+		
+		$data = $process == 'update status' ? array_merge($data, array('status_change' => $ex_info)) : array_merge($data, array('usb_headset_assignment' => $ex_info));
 
 		$this->CI->db->set('cdate', 'NOW()', FALSE);
 
