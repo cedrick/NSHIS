@@ -173,7 +173,7 @@ class Connector_model extends CI_Model {
 	
 	function get_available_connectors()
 	{
-		$return = $this->db->get_where('nshis_connectors', array('flag_assigned' => 0));
+		$return = $this->db->get_where('nshis_connectors', array('flag_assigned' => 0, 'status' => 1));
 		
 		if($return->num_rows() > 0)
 		{

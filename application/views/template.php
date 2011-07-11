@@ -19,6 +19,10 @@
 				width: 170px;
 			}
 			
+			.ui-autocomplete li {
+				margin-bottom: 4px;
+			}
+			
 			.ui-autocomplete-loading {
 				background: white url('<?php echo base_url() ?>css/images/ui-anim_basic_16x16.gif') right center no-repeat;
 			}

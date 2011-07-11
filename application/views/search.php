@@ -9,6 +9,7 @@
 						);
 						
 						$options = array(
+							'all'	=>	'ALL',
 							'cubicle'	=>	'CUBICLE',
 							'cpu'	=>	'CPU',
 							'keyboard'	=>	'KEYBOARD',

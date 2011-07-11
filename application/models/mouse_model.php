@@ -173,7 +173,7 @@ class Mouse_model extends CI_Model {
 	
 	function get_available_mouses()
 	{
-		$return = $this->db->get_where('nshis_mouses', array('flag_assigned' => 0));
+		$return = $this->db->get_where('nshis_mouses', array('flag_assigned' => 0, 'status' => 1));
 		
 		if($return->num_rows() > 0)
 		{

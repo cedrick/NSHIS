@@ -173,7 +173,7 @@ class Ups_model extends CI_Model {
 	
 	function get_available_upss()
 	{
-		$return = $this->db->get_where('nshis_upss', array('flag_assigned' => 0));
+		$return = $this->db->get_where('nshis_upss', array('flag_assigned' => 0, 'status' => 1));
 		
 		if($return->num_rows() > 0)
 		{

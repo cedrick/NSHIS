@@ -164,7 +164,7 @@ class Devicelog {
 			$preposition = ($row->process == 'assign' || $row->process == 'swap' || $row->process == 'transfer') ? 'to' : ($row->process == 'pullout' ? 'from' : 'from ' . '<strong>'.str_replace('to', '</strong>to<strong>', $row->status_change).'</strong>');
 				
 			//display cubicle or assigned USB headset if applicable.
-			$cubicle = $row->cubicle_id != 0 ? anchor('cubicle/view/'.$row->cubicle_id,$row->cubicle_name) : ($row->usb_headset_assignment != NULL ? $row->usb_headset_assignment : NULL);
+			$cubicle = $row->cubicle_id != 0 ? anchor('cubicle/view/'.$row->cubicle_id,$row->cubicle_name) : ($row->usb_headset_assignment != NULL ? '<strong>'.$row->usb_headset_assignment.'</strong>' : NULL);
 			
 			//remove hyperlink if operation was DELETE
 			$device = $row->process == 'delete' ? '<strong>'.$row->device.' ['.$row->device_name.']</strong>' : anchor($row->device.'/view/'.$row->device_id,$row->device.' ['.$row->device_name.'] ');

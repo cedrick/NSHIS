@@ -13,7 +13,8 @@ class Usb_headset extends CI_Controller {
 		$this->load->model('Globals_model');
 
 		$this->load->library('devicelog');
-
+		
+		$this->load->model('People_model');
 	}
 
 	function index()
@@ -153,38 +154,38 @@ class Usb_headset extends CI_Controller {
 		if($_POST['my_device_id'] != '' || $_POST['my_device_id'] != NULL)
 		{
 			$this->devicelog->insert_log($this->session->userdata('user_id'), $_POST['my_device_id'], 'usb_headset', 'delete');
-			
+				
 			$id = $this->Usb_headset_model->delete_usb_headset($_POST['my_device_id']);
 		}
 		/*
-		$this->form_validation->set_rules('delete', 'Delete', 'trim|required|xss_clean');
+		 $this->form_validation->set_rules('delete', 'Delete', 'trim|required|xss_clean');
 
-		if($this->form_validation->run() == FALSE)
-		{
+		 if($this->form_validation->run() == FALSE)
+		 {
 			$data = $this->Usb_headset_model->get_usb_headset_info($usb_headset_id);
 			$this->load->view('template',array('page'=>'usb_headset/delete', 'data' => $data));
-		}
-		else
-		{
+			}
+			else
+			{
 			$delete = $this->input->post('delete');
 
 			if($delete=='no')
 			{
-				redirect('/usb_headset/view/' . $usb_headset_id, 'refresh');
+			redirect('/usb_headset/view/' . $usb_headset_id, 'refresh');
 			}
 			else
 			{
-				$id = $this->Usb_headset_model->delete_usb_headset($usb_headset_id);
+			$id = $this->Usb_headset_model->delete_usb_headset($usb_headset_id);
 
-				if ($id)
-				{
-					$this->devicelog->insert_log($this->session->userdata('user_id'), $id, 'usb_headset', 'delete');
+			if ($id)
+			{
+			$this->devicelog->insert_log($this->session->userdata('user_id'), $id, 'usb_headset', 'delete');
 
-					redirect('/usb_headset/viewall', 'refresh');
-				}
+			redirect('/usb_headset/viewall', 'refresh');
 			}
-		}
-		*/
+			}
+			}
+			*/
 	}
 
 	function viewall()
@@ -201,22 +202,26 @@ class Usb_headset extends CI_Controller {
 			echo "This headset was already assigned.";
 		}else
 		{
-			$this->form_validation->set_rules('usb_headset_assignto', 'Assigned to', 'trim|required|xss_clean|min_length[1]|callback_is_changed['.$usb_headset_id.']|callback_name_exist');
+			$this->form_validation->set_rules('assign', 'Assigned to', 'trim|required|xss_clean');
 
 			if($this->form_validation->run() == FALSE)
 			{
-				$data = $this->Usb_headset_model->get_usb_headset_info($usb_headset_id);
+				
+				$headsets = $this->Usb_headset_model->get_usb_headset_info($usb_headset_id);
+				$people = $this->People_model->get_available();
+				
+				$data = array('headsets' => $headsets, 'people' => $people);
 				$this->load->view('template',array('page'=>'usb_headset/assign','data' => $data));
 			}
 			else
 			{
-				$usb_headset_assignto = preg_replace('/\s{2,}/',' ', $this->input->post('usb_headset_assignto'));
+				//$usb_headset_assignto = preg_replace('/\s{2,}/',' ', $this->input->post('usb_headset_assignto'));
 
-				$success = $this->Usb_headset_model->assign_usb_headset($usb_headset_id, $usb_headset_assignto);
+				$success = $this->Usb_headset_model->assign_usb_headset($usb_headset_id, $this->input->post('assign'));
 
 				if ($success)
 				{
-					$this->devicelog->insert_log($this->session->userdata('user_id'), $usb_headset_id, 'usb_headset', 'assign', 0, $usb_headset_assignto);
+					$this->devicelog->insert_log($this->session->userdata('user_id'), $usb_headset_id, 'usb_headset', 'assign', 0, $this->People_model->get_name($this->input->post('assign')));
 
 					redirect('/usb_headset/view/'.$usb_headset_id, 'refresh');
 				}
@@ -230,9 +235,10 @@ class Usb_headset extends CI_Controller {
 		{
 			$this->form_validation->set_rules('unassign', 'Unassign', 'trim|required|xss_clean');
 
+			$data = $this->Usb_headset_model->get_usb_headset_info($usb_headset_id);
+			
 			if($this->form_validation->run() == FALSE)
 			{
-				$data = $this->Usb_headset_model->get_usb_headset_info($usb_headset_id);
 				$this->load->view('template',array('page'=>'usb_headset/unassign', 'data' => $data));
 			}
 			else
@@ -247,7 +253,9 @@ class Usb_headset extends CI_Controller {
 				{
 					if ($this->Usb_headset_model->unassign_usb_headset($usb_headset_id))
 					{
-						$this->devicelog->insert_log($this->session->userdata('user_id'), $usb_headset_id, 'usb_headset', 'unassign');
+						$info = $data->row();
+						
+						$this->devicelog->insert_log($this->session->userdata('user_id'), $usb_headset_id, 'usb_headset', 'unassign', 0, $this->People_model->get_name($info->assigned_person));
 
 						redirect('/usb_headset/view/' . $usb_headset_id, 'refresh');
 					}

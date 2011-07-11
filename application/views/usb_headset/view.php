@@ -32,8 +32,8 @@
 									<td id="resultName">Date Purchased</td><td><?php echo $row->date_purchased;?></td>
 								</tr>
 								<tr>
-                  <td id="resultName" width="30%">Assigned To</td><td><?php echo $row->assigned_person; ?></td>
-                </tr>
+				                  <td id="resultName" width="30%">Assigned To</td><td><?php echo $this->People_model->get_name($row->assigned_person); ?></td>
+				                </tr>
 								<tr>
 									<td id="resultName">Notes</td><td><?php echo $row->notes;?></td>
 								</tr>

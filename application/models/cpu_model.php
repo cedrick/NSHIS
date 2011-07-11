@@ -165,7 +165,7 @@ class CPU_model extends CI_Model {
 	
 	function get_available_cpus()
 	{
-		$return = $this->db->get_where('nshis_cpus', array('flag_assigned' => 0));
+		$return = $this->db->get_where('nshis_cpus', array('flag_assigned' => 0, 'status' => 1));
 		
 		if($return->num_rows() > 0)
 		{

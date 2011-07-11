@@ -68,6 +68,11 @@
 		echo '<li>'.anchor($this->uri->segment(1).'/add/', 'Add New').'</li>';
 		echo '<li>'.anchor($this->uri->segment(1).'/viewall/', 'View All').'</li>';
 		
+		if ($this->uri->segment(1) == 'usb_headset') {
+			echo '<li>'.anchor(base_url().'people/add', 'Add User').'</li>';
+			echo '<li>'.anchor(base_url().'people/viewall', 'View All Users').'</li>';
+		}
+		
 	}
 
 	?>
