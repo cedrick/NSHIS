@@ -161,7 +161,12 @@ class Devicelog {
 			}
 				
 			//format preposition to be display
-			$preposition = ($row->process == 'assign' || $row->process == 'swap' || $row->process == 'transfer') ? 'to' : ($row->process == 'pullout' ? 'from' : 'from ' . '<strong>'.str_replace('to', '</strong>to<strong>', $row->status_change).'</strong>');
+			if ($row->device == 'cubicle') {
+				//ignore preposition where delete cubicle
+				$preposition = '';
+			} else {
+				$preposition = ($row->process == 'assign' || $row->process == 'swap' || $row->process == 'transfer') ? 'to' : ($row->process == 'pullout' ? 'from' : 'from ' . '<strong>'.str_replace('to', '</strong>to<strong>', $row->status_change).'</strong>');
+			}
 				
 			//display cubicle or assigned USB headset if applicable.
 			$cubicle = $row->cubicle_id != 0 ? anchor('cubicle/view/'.$row->cubicle_id,$row->cubicle_name) : ($row->usb_headset_assignment != NULL ? '<strong>'.$row->usb_headset_assignment.'</strong>' : NULL);

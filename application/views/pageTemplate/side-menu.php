@@ -15,7 +15,7 @@
 			buttons: {
 				"Delete this item?": function() {
 					$.post(base_url + device + "/delete",{my_device_id : device_id},
-						function() {
+						function(data) {
 							$( this ).dialog( "close" );
 							window.location = base_url + device + "/viewall";
 						}

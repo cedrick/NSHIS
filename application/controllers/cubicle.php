@@ -11,8 +11,8 @@ Class Cubicle extends CI_Controller {
 		$this->load->model('Cubicle_model');
 
 		$this->load->model('Globals_model');
-
-		$this->load->library('devicelog');
+		
+		$this->load->model('Stats_model');
 	}
 
 	function index()
@@ -37,7 +37,7 @@ Class Cubicle extends CI_Controller {
 				
 			if($id)
 			{
-				$this->Stats_model->insert_log($this->session->userdata('user_id'), $id, 'cubicle', 'add');
+				$this->devicelog->insert_log($this->session->userdata('user_id'), $id, 'cubicle', 'add');
 
 				redirect('/cubicle/view/'.$id, 'refresh');
 			}
@@ -79,39 +79,13 @@ Class Cubicle extends CI_Controller {
 		}
 	}
 
-	function delete($cubicle_id)
+	function delete()
 	{
-		$this->form_validation->set_rules('delete', 'Delete', 'trim|required|xss_clean');
-
-		if($this->form_validation->run() == FALSE)
+		if($_POST['my_device_id'] != '' || $_POST['my_device_id'] != NULL)
 		{
-			$data = $this->Cubicle_model->get_cubicle_info($cubicle_id);
-			$this->load->view('template',array('page'=>'cubicle/delete', 'data' => $data));
-		}
-		else
-		{
-			$delete = $this->input->post('delete');
-				
-			if($delete=='no')
-			{
-				redirect('/cubicle/viewall', 'refresh');
-			}
-			else
-			{
-				$delete = $this->Cubicle_model->delete_cubicle($cubicle_id);
-
-				if ($delete)
-				{
-					$this->Stats_model->insert_log($this->session->userdata('user_id'), $cubicle_id, 'cubicle', 'delete');
-						
-					redirect('/cubicle/viewall', 'refresh');
-				}
-				else
-				{
-					echo "Delete error";
-				}
-			}
-			//			$this->Cubicle_model->edit_cubicle($cubicle_id, $cubicle_name);
+			$this->devicelog->insert_log($this->session->userdata('user_id'), $_POST['my_device_id'], 'cubicle', 'delete');
+			
+			$id = $this->Cubicle_model->delete_cubicle($_POST['my_device_id']);
 		}
 	}
 

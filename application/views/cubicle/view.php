@@ -1,5 +1,5 @@
 					<?php 
-						if ($data)
+						if ($data['info'])
 						{
 							$row = $data['info']->row();
 					?>
