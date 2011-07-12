@@ -161,7 +161,7 @@ class Devicelog {
 			}
 				
 			//format preposition to be display
-			if ($row->device == 'cubicle') {
+			if ($row->device == 'cubicle' || $row->process == 'add') {
 				//ignore preposition where delete cubicle
 				$preposition = '';
 			} else {
