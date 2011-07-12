@@ -1,8 +1,5 @@
-				<?php 
-					if ($data)
-					{
-						$row = $data['info']->row();
-				?>
+					<?php if($data['info']): ?>
+					<?php $row = $data['info']->row(); ?>
 					<div class="section width500" >
 						<div class="sectionHeader">CPU <?php echo $row->cpu_name;?> Info</div>
 						<div class="sectionBody">
@@ -71,17 +68,11 @@
 							?>
 						</div>
 					</div>
-				<?php
-					}
-					else 
-					{
-				?>
+					<?php else: ?>
 					<div class="section width500" >
 						<div class="sectionHeader">CPU Info</div>
 						<div class="sectionBody">
 							CPU dont exist.
 						</div>
 					</div>
-				<?php		
-					}
-				?>
+					<?php endif; ?>

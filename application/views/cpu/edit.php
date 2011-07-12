@@ -1,3 +1,4 @@
+					<?php if($data): ?>
 					<?php 
 						
 						echo form_open(base_url() . 'cpu/edit/' . $this->uri->segment(3));
@@ -256,3 +257,11 @@
 							</form>
 						</div>
 					</div>
+					<?php else: ?>
+					<div class="section width500" >
+						<div class="sectionHeader">Item Info</div>
+						<div class="sectionBody">
+							Item dont exist.
+						</div>
+					</div>
+					<?php endif; ?>

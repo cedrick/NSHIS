@@ -1,8 +1,5 @@
-				<?php 
-					if ($data)
-					{
-						$row = $data['info']->row();
-				?>
+					<?php if($data['info']): ?>
+					<?php $row = $data['info']->row(); ?>
 					<div class="section width500" >
 						<div class="sectionHeader">Usb_headset <?php echo $row->usb_headset_name;?> Info</div>
 						<div class="sectionBody">
@@ -53,18 +50,11 @@
 							?>	 
 						</div>
 					</div>
-					
-				<?php
-					}
-					else 
-					{
-				?>
+					<?php else: ?>
 					<div class="section width500" >
 						<div class="sectionHeader">Usb_headset Info</div>
 						<div class="sectionBody">
 							Usb_headset dont exist.
 						</div>
 					</div>
-				<?php		
-					}
-				?>
+					<?php endif; ?>

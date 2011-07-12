@@ -1,8 +1,5 @@
-					<?php 
-						if ($data['info'])
-						{
-							$row = $data['info']->row();
-					?>
+					<?php if($data['info']): ?>
+					<?php $row = $data['info']->row(); ?>
 					<script type="text/javascript">
 					$(document).ready(function() {
 						$('.cubLink a').button();
@@ -23,7 +20,7 @@
 									<td id="resultName">Keyboard</td><td><?php echo anchor('keyboard/view/'.$row->keyboard_id, $row->kyb_name.' ', 'title="View"');?></td><td class="cubLink"><?php echo anchor('keyboard/assign/'.$row->cubicle_id, 'assign', 'title="Assign new item"'); echo isset($row->keyboard_id) ? anchor('keyboard/transfer/'.$row->keyboard_id,'transfer', 'title="Transfer this item to another cubicle"').anchor('keyboard/swap/'.$row->keyboard_id, 'swap', 'title="Swap this item from other cubicle"').anchor('keyboard/pullout/'.$row->keyboard_id, 'pullout', 'title="Pullout this item on this cubicle"') : '';?></td>
 								</tr>
 								<tr>
-									<td id="resultName">Mouse</td><td><?php echo anchor('mouse/view/'.$row->mouse_id, $row->mse_name.' ', 'title="View"');?></td><td class="cubLink"><?php echo anchor('mouse/assign/'.$row->cubicle_id, 'assign', 'title="Assign new item"'); echo isset($row->mouse_id) ? anchor('mouse/transfer/'.$row->mouse_id,'transfer', 'title="Transfer this item to another cubicle"').anchor('mouse/swap/'.$row->mouse_id, 'swap', 'title="Swap this item from other cubicle"').anchor('mosue/pullout/'.$row->mouse_id, 'pullout', 'title="Pullout this item on this cubicle"') : '';?></td>
+									<td id="resultName">Mouse</td><td><?php echo anchor('mouse/view/'.$row->mouse_id, $row->mse_name.' ', 'title="View"');?></td><td class="cubLink"><?php echo anchor('mouse/assign/'.$row->cubicle_id, 'assign', 'title="Assign new item"'); echo isset($row->mouse_id) ? anchor('mouse/transfer/'.$row->mouse_id,'transfer', 'title="Transfer this item to another cubicle"').anchor('mouse/swap/'.$row->mouse_id, 'swap', 'title="Swap this item from other cubicle"').anchor('mouse/pullout/'.$row->mouse_id, 'pullout', 'title="Pullout this item on this cubicle"') : '';?></td>
 								</tr>
 								<tr>
 									<td id="resultName">Monitor</td><td><?php echo anchor('monitor/view/'.$row->monitor_id, $row->mon_name.' ', 'title="View"');?></td><td class="cubLink"><?php echo anchor('monitor/assign/'.$row->cubicle_id, 'assign', 'title="Assign new item"'); echo isset($row->monitor_id) ? anchor('monitor/transfer/'.$row->monitor_id,'transfer', 'title="Transfer this item to another cubicle"').anchor('monitor/swap/'.$row->monitor_id, 'swap', 'title="Swap this item from other cubicle"').anchor('monitor/pullout/'.$row->monitor_id, 'pullout', 'title="Pullout this item on this cubicle"') : '';?></td>
@@ -59,17 +56,11 @@
 							?> 
 						</div>
 					</div>
-					<?php
-						}
-						else 
-						{
-					?>
+					<?php else: ?>
 					<div class="section width500" >
 						<div class="sectionHeader">Cubicle Info</div>
 						<div class="sectionBody">
 							Cubicle dont exist.
 						</div>
 					</div>
-					<?php		
-						}
-					?>
+					<?php endif; ?>

@@ -205,16 +205,8 @@ class Devicelog {
 				echo '<li class="isDate">'.$row_comment->comment_date.'</li>';
 				echo '</ul></li>';
 			}
-			if ($query_comment->num_rows() == 0)
-			{
-				echo '<li id="li_'.$row->log_id.'" ><ul class="comments"><textarea cols="115" id="ta_'.$row->log_id.'" class="hidden_first textarea-log"></textarea></ul></li></ul></div></div>';
-			}
-			else {
-				echo '<li><ul class="comments"><textarea cols="115" id="ta_'.$row->log_id.'" class="textarea-log"></textarea></ul></li></ul></div></div>';
-			} 
-			//$this->CI->table->add_row($row->log_id, '<strong>'.$row->username.'</strong>'.' '.$operation.' '.$device.' '.$preposition.' '.$cubicle, $row->log_date);
+			echo '<li id="li_'.$row->log_id.'" ><ul class="comments"><textarea cols="115" id="ta_'.$row->log_id.'" class="hidden_first textarea-log"></textarea></ul></li></ul></div></div>';
 		}
-		//echo $this->CI->table->generate();
 		echo '</div>';
 
 	}

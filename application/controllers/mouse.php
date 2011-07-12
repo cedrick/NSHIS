@@ -13,8 +13,6 @@ class Mouse extends CI_Controller {
 		$this->load->model('Cubicle_model');
 
 		$this->load->model('Globals_model');
-
-		$this->load->library('devicelog');
 	}
 
 	function index()

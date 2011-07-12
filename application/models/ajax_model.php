@@ -33,6 +33,8 @@ class Ajax_model extends CI_Model {
 		
 		$return = $this->devicelog->insert_log($this->session->userdata('user_id'), $item_id, $item, 'update status', 0, $current_status['status_name'] . ' to ' . $update_status['status_name']);
 		
+		$this->comment_add($this->db->insert_id(), $status_comment); 
+		
 		$this->devicestatus->update_status($item, $item_id, $status);
 		
 		if ($return) {

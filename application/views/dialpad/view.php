@@ -1,8 +1,5 @@
-				<?php 
-					if ($data)
-					{
-						$row = $data['info']->row();
-				?>
+					<?php if($data['info']): ?>
+					<?php $row = $data['info']->row(); ?>
 					<div class="section width500" >
 						<div class="sectionHeader">Dialpad <?php echo $row->dialpad_name;?> Info</div>
 						<div class="sectionBody">
@@ -53,18 +50,11 @@
 							?>	 
 						</div>
 					</div>
-					
-				<?php
-					}
-					else 
-					{
-				?>
+					<?php else: ?>
 					<div class="section width500" >
 						<div class="sectionHeader">Dialpad Info</div>
 						<div class="sectionBody">
 							Dialpad dont exist.
 						</div>
 					</div>
-				<?php		
-					}
-				?>
+					<?php endif; ?>

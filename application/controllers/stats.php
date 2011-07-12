@@ -9,8 +9,6 @@ class Stats extends CI_Controller {
 		$this->userCheck($this->session->userdata('is_logged'));
 
 		$this->load->model('Stats_model');
-		
-		$this->load->library('devicelog');
 	}
 
 	function index()
