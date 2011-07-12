@@ -176,6 +176,22 @@ class Cubicle_model extends CI_Model {
 		}
 	}
 	
+	function get_cubicle_name($cubicle_id)
+	{
+		$return = $this->db->get_where('nshis_cubicles', array('cubicle_id' => $cubicle_id));
+		
+		if($return->num_rows() > 0)
+		{
+			$info = $return->row_array();
+
+			return $info['name'];
+		}
+		else 
+		{
+			return false;
+		}
+	}
+	
 	function insert_comment($cubicle_id, $comment)
 	{
 		$data = array(

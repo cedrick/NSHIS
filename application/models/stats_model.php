@@ -110,4 +110,78 @@ class Stats_model extends CI_Model {
 		}
 	}
 	
+	function hardware_summary()
+	{
+		$hardwares = array('keyboard', 'mouse', 'cpu', 'monitor', 'dialpad', 'connector', 'headset', 'ups', 'usb_headset');
+		
+		
+		echo '
+			<div class="section width700" >
+				<div class="sectionHeader">Hardware Summary</div>
+				<div class="sectionBody">
+					 <table width="100%" border="0" cellpadding="10" id="latestStatusTable">
+					 	<tr class="latestStatusTableHeader"><td>Hardware</td><td>Available</td><td>Defective</td><td>Under Repair</td><td>EOL</td><td>Deployed</td><td>Total</td></tr>
+					 	
+		';
+		
+		foreach ($hardwares as $hardware) {
+			echo '<tr>';
+			echo '<td>'.$hardware.'</td>';
+			//count available
+			$query = $this->db->get_where('nshis_'.$hardware.'s', array('flag_assigned' => 0, 'status' => 1));
+			echo '<td>'.anchor('stats/view/'.$hardware.'/1', $query->num_rows()).'</td>';
+			
+			//count defective/broken
+			$query = $this->db->get_where('nshis_'.$hardware.'s', array('flag_assigned' => 0, 'status' => 2));
+			echo '<td>'.anchor('stats/view/'.$hardware.'/2', $query->num_rows()).'</td>';
+			
+			//count ender repair
+			$query = $this->db->get_where('nshis_'.$hardware.'s', array('flag_assigned' => 0, 'status' => 4));
+			echo '<td>'.anchor('stats/view/'.$hardware.'/4', $query->num_rows()).'</td>';
+			
+			//count EOL
+			$query = $this->db->get_where('nshis_'.$hardware.'s', array('flag_assigned' => 0, 'status' => 5));
+			echo '<td>'.anchor('stats/view/'.$hardware.'/5', $query->num_rows()).'</td>';
+			
+			//count Deployed
+			$query = $this->db->get_where('nshis_'.$hardware.'s', array('flag_assigned' => 1));
+			echo '<td>'.anchor('stats/view/'.$hardware.'/0/1', $query->num_rows()).'</td>';
+			
+			//count All
+			$query = $this->db->get('nshis_'.$hardware.'s');
+			echo '<td>'.$query->num_rows().'</td>';
+			
+			echo '</tr>';
+			
+		
+		}
+		
+		echo '
+					 </table>
+				</div>
+			</div>
+		';
+	}
+	
+	function fetch_items($device, $status, $assigned = 0)
+	{
+		if ($assigned ==0) {
+			$query = $this->db->get_where('nshis_'.$device.'s', array('status' => $status, 'flag_assigned' => $assigned));
+		} 
+		else {
+			$query = $this->db->get_where('nshis_'.$device.'s', array('flag_assigned' => $assigned));
+		}
+		
+		foreach ($query->result() as $row) {
+			$status_name = $this->devicestatus->get_status_id($row->status);
+			$location = $device != 'usb_headset' ? $this->Cubicle_model->get_cubicle_name($row->cubicle_id) : $this->People_model->get_name($row->assigned_person);
+			$id = $device.'_id';
+			echo '<tr>';
+			echo '<td>'.anchor($device.'/view/'.$row->$id, $row->name).'</td>';
+			echo '<td>'.$status_name['status_name'].'</td>';
+			echo '<td>'.$location.'</td>';
+			echo '</tr>';
+		}
+	}
+	
 }
