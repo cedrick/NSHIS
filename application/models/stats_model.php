@@ -120,7 +120,7 @@ class Stats_model extends CI_Model {
 				<div class="sectionHeader">Hardware Summary</div>
 				<div class="sectionBody">
 					 <table width="100%" border="0" cellpadding="10" id="latestStatusTable">
-					 	<tr class="latestStatusTableHeader"><td>Hardware</td><td>Available</td><td>Defective</td><td>Under Repair</td><td>EOL</td><td>Deployed</td><td>Total</td></tr>
+					 	<tr class="latestStatusTableHeader"><td>Hardware</td><td>Available</td><td>Defective</td><td>U. Repair</td><td>Missing</td><td>EOL</td><td>Deployed</td><td>Total</td></tr>
 					 	
 		';
 		
@@ -139,6 +139,10 @@ class Stats_model extends CI_Model {
 			$query = $this->db->get_where('nshis_'.$hardware.'s', array('flag_assigned' => 0, 'status' => 4));
 			echo '<td>'.anchor('stats/view/'.$hardware.'/4', $query->num_rows()).'</td>';
 			
+			//count missing
+			$query = $this->db->get_where('nshis_'.$hardware.'s', array('flag_assigned' => 0, 'status' => 3));
+			echo '<td>'.anchor('stats/view/'.$hardware.'/3', $query->num_rows()).'</td>';
+			
 			//count EOL
 			$query = $this->db->get_where('nshis_'.$hardware.'s', array('flag_assigned' => 0, 'status' => 5));
 			echo '<td>'.anchor('stats/view/'.$hardware.'/5', $query->num_rows()).'</td>';
@@ -152,8 +156,6 @@ class Stats_model extends CI_Model {
 			echo '<td>'.$query->num_rows().'</td>';
 			
 			echo '</tr>';
-			
-		
 		}
 		
 		echo '
@@ -174,12 +176,13 @@ class Stats_model extends CI_Model {
 		
 		foreach ($query->result() as $row) {
 			$status_name = $this->devicestatus->get_status_id($row->status);
-			$location = $device != 'usb_headset' ? $this->Cubicle_model->get_cubicle_name($row->cubicle_id) : $this->People_model->get_name($row->assigned_person);
+			$location = ($device != 'usb_headset' &&  $row->cubicle_id != 0) ? $this->Cubicle_model->get_cubicle_name($row->cubicle_id) : '';
+			$location_link = $location != '' ? anchor('cubicle/view/'.$row->cubicle_id, $location) : ($device == 'usb_headset' ? $this->People_model->get_name($row->assigned_person) : '');
 			$id = $device.'_id';
 			echo '<tr>';
 			echo '<td>'.anchor($device.'/view/'.$row->$id, $row->name).'</td>';
 			echo '<td>'.$status_name['status_name'].'</td>';
-			echo '<td>'.$location.'</td>';
+			echo '<td>'.$location_link.'</td>';
 			echo '</tr>';
 		}
 	}

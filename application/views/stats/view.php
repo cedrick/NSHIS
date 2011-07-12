@@ -9,6 +9,9 @@
 							case 2 :
 								$status = 'Defective';
 								break;
+							case 3 :
+								$status = 'Missing';
+								break;
 							case 4 :
 								$status = 'Under Repair';
 								break;
