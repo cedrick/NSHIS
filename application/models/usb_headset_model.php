@@ -161,6 +161,8 @@ class Usb_headset_model extends CI_Model {
 
 	function get_available_usb_headsets()
 	{
+		$this->db->order_by('name', 'asc');
+		
 		$return = $this->db->get_where('nshis_usb_headsets', array('flag_assigned' => 0, 'status' => 1));
 
 		if($return->num_rows() > 0)
@@ -296,9 +298,15 @@ class Usb_headset_model extends CI_Model {
 
 	function delete_usb_headset($usb_headset_id)
 	{
-		$delete = $this->db->delete('nshis_usb_headsets', array('usb_headset_id' => $usb_headset_id));
+		$delete1 = $this->db->query('
+			UPDATE nshis_people a, nshis_usb_headsets b 
+			SET a.flag_usb_headset = 0
+			WHERE b.usb_headset_id = '.$usb_headset_id.' 
+			    AND a.id=b.assigned_person');
+		
+		$delete2 = $this->db->delete('nshis_usb_headsets', array('usb_headset_id' => $usb_headset_id));
 
-		if ($delete)
+		if ($delete1 && $delete2)
 		{
 			return $usb_headset_id;
 		}
@@ -310,19 +318,19 @@ class Usb_headset_model extends CI_Model {
 
 	function unassign_usb_headset($usb_headset_id)
 	{
+		$unassign2 = $this->db->query('
+			UPDATE nshis_people a, nshis_usb_headsets b 
+			SET a.flag_usb_headset = 0
+			WHERE b.usb_headset_id = '.$usb_headset_id.' 
+			    AND a.id=b.assigned_person');
+		
 		$data = array(
 	      'flag_assigned' => 0,
-	      'assigned_person' => NULL
+	      'assigned_person' => 0
 		);
 
 		$unassign = $this->db->update('nshis_usb_headsets', $data, array('usb_headset_id' => $usb_headset_id));
 
-		$unassign2 = $this->db->query('
-			UPDATE nshis_people a, nshis_usb_headsets b 
-			SET a.flag_usb_headset = 0
-			WHERE b.usb_headset_id = 187 
-			    AND a.id=b.assigned_person');
-				
 		if ($unassign && $unassign2)
 		{
 			return true;

@@ -405,7 +405,7 @@ ul.icons span.ui-icon {float: left; margin: 0 4px;}
 	text-decoration: underline;
 	font-style: italic;
 }
-#change-status:HOVER {
+#change-status:HOVER, .assign-headset:HOVER {
 	cursor: pointer;
 }
 

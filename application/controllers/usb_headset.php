@@ -20,8 +20,6 @@ class Usb_headset extends CI_Controller {
 	function index()
 	{
 
-
-
 	}
 
 	function add()
@@ -157,35 +155,6 @@ class Usb_headset extends CI_Controller {
 				
 			$id = $this->Usb_headset_model->delete_usb_headset($_POST['my_device_id']);
 		}
-		/*
-		 $this->form_validation->set_rules('delete', 'Delete', 'trim|required|xss_clean');
-
-		 if($this->form_validation->run() == FALSE)
-		 {
-			$data = $this->Usb_headset_model->get_usb_headset_info($usb_headset_id);
-			$this->load->view('template',array('page'=>'usb_headset/delete', 'data' => $data));
-			}
-			else
-			{
-			$delete = $this->input->post('delete');
-
-			if($delete=='no')
-			{
-			redirect('/usb_headset/view/' . $usb_headset_id, 'refresh');
-			}
-			else
-			{
-			$id = $this->Usb_headset_model->delete_usb_headset($usb_headset_id);
-
-			if ($id)
-			{
-			$this->devicelog->insert_log($this->session->userdata('user_id'), $id, 'usb_headset', 'delete');
-
-			redirect('/usb_headset/viewall', 'refresh');
-			}
-			}
-			}
-			*/
 	}
 
 	function viewall()

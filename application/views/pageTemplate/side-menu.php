@@ -37,7 +37,7 @@
 		<li><a href="<?php echo base_url();?>cubicle/viewall">View All Cubicles</a></li>
 	</ul>
 	<?php
-	if ($this->uri->segment(2) == 'view' || $this->uri->segment(2) == 'edit' || $this->uri->segment(2) == 'assign' && $this->uri->segment(1) == 'usb_headset')
+	if (($this->uri->segment(2) == 'view' || $this->uri->segment(2) == 'edit' || $this->uri->segment(2) == 'assign'))
 	{
 		echo '
 			<br /><br />
@@ -68,9 +68,22 @@
 		echo '<li>'.anchor($this->uri->segment(1).'/add/', 'Add New').'</li>';
 		echo '<li>'.anchor($this->uri->segment(1).'/viewall/', 'View All').'</li>';
 		
-		if ($this->uri->segment(1) == 'usb_headset') {
+		if ($this->uri->segment(1) == 'usb_headset' || $this->uri->segment(1) == 'people') {
 			echo '<li>'.anchor(base_url().'people/add', 'Add User', 'target = "_blank"').'</li>';
 			echo '<li>'.anchor(base_url().'people/viewall', 'View All Users', 'target = "_blank"').'</li>';
+		}
+	}
+	else 
+	{
+		if ($this->uri->segment(1) == 'people') {
+			echo '
+				<br /><br />
+				<a href="#">USER</a><br />
+				<ul>
+			';
+			echo '<li>'.anchor(base_url().'people/add', 'Add User').'</li>';
+			echo '<li>'.anchor(base_url().'people/viewall', 'View All Users').'</li>';
+			echo '<li>'.anchor(base_url().'usb_headset/viewall', 'View All USB Headsets').'</li>';
 		}
 		
 	}

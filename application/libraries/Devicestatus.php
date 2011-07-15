@@ -76,6 +76,20 @@ class Devicestatus {
 								tips.removeClass( "ui-state-highlight", 1500 );
 							}, 500 );
 						}
+						
+						function show_saving(){
+							$.blockUI({ css: { 
+					            border: "none", 
+					            padding: "15px", 
+					            backgroundColor: "#000", 
+					            "-webkit-border-radius": "10px", 
+					            "-moz-border-radius": "10px", 
+					            opacity: .5, 
+					            color: "#fff"
+					       		},
+					       		message: "<h1>Processing</h1>" 
+							}); 
+						}
 				
 						function checkLength( o, n, min, max ) {
 							if ( $.trim(o.val()).length > max || $.trim(o.val()).length < min ) {
@@ -98,12 +112,15 @@ class Devicestatus {
 									var bValid = true;
 									allFields.removeClass( "ui-state-error" );
 									if (checkLength(status_comment, "Comment", 2, 1000)) {
+										$( this ).dialog( "close" );
+										show_saving();
 										$.post(base_url + "ajax/status_change", {
 											item : myitem,
 											item_id : myitem_id,
 											status : $( "#status" ).val(),
 											status_comment : $( "#status-comment" ).val()
 										}, function() {
+											$.unblockUI;
 											window.location.reload(true);
 										});
 									}

@@ -10,6 +10,7 @@
 		<link type="text/css" href="<?php echo base_url() ?>jquery/jquery-ui/css/custom-theme/jquery-ui-1.8.14.custom.css" rel="stylesheet" />  
 		<script type="text/javascript" src="<?php echo base_url() ?>jquery/plugins/jquery.autogrowtextarea.js"></script>
 		<script type="text/javascript" src="<?php echo base_url() ?>jquery/plugins/ambet.autocomplete.js"></script>
+		<script type="text/javascript" src="<?php echo base_url() ?>jquery/plugins/blockui.js"></script>
 		<style>
 			.ui-autocomplete {
 				max-height: 200px;

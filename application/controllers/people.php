@@ -9,6 +9,8 @@ class People extends CI_Controller {
 		$this->userCheck($this->session->userdata('is_logged'));
 		
 		$this->load->model('People_model');
+		
+		$this->load->model('Usb_headset_model');
 	}
 
 	function index()
@@ -37,11 +39,13 @@ class People extends CI_Controller {
 			{
 				$this->People_model->add($fname, $lname);
 				
-				redirect('/people/viewall/#'.$full_name, 'refresh');
+				redirect('/people/viewall/', 'refresh');
 			} 
 			else {
 				$this->session->set_flashdata('error', $full_name.' already exist.');
-				$this->load->view('template',array('page'=>'people/add'));
+				
+				redirect('/people/add/', 'refresh');
+				//$this->load->view('template',array('page'=>'people/add'));
 			}
 		}
 	}

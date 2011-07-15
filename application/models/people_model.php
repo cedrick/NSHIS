@@ -31,6 +31,7 @@ class People_model extends CI_Model {
 		$this->db->select('*');
 		$this->db->from('nshis_people');
 		$this->db->join('nshis_usb_headsets', 'nshis_people.id = nshis_usb_headsets.assigned_person', 'left');
+		$this->db->order_by('nshis_people.last_name, nshis_people.first_name');
 		return $this->db->get();
 	}
 	
