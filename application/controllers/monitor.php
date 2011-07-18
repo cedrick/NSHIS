@@ -206,7 +206,7 @@ class Monitor extends CI_Controller {
 
 				if ($id)
 				{
-					$this->devicelog->insert_log($this->session->userdata('user_id'), $monitor_id, 'monitor', 'swap', $id);
+					//$this->devicelog->insert_log($this->session->userdata('user_id'), $monitor_id, 'monitor', 'swap', $id);
 						
 					redirect('/cubicle/view/'.$id, 'refresh');
 				}

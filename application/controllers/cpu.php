@@ -340,7 +340,7 @@ class CPU extends CI_Controller {
 
 				if ($id)
 				{
-					$this->devicelog->insert_log($this->session->userdata('user_id'), $cpu_id, 'cpu', 'swap', $id);
+					//$this->devicelog->insert_log($this->session->userdata('user_id'), $cpu_id, 'cpu', 'swap', $id, array('' => , ));
 						
 					redirect('/cubicle/view/'.$id, 'refresh');
 				}

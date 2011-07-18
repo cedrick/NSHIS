@@ -205,7 +205,7 @@ class Connector extends CI_Controller {
 
 				if ($id)
 				{
-					$this->devicelog->insert_log($this->session->userdata('user_id'), $connector_id, 'connector', 'swap', $id);
+					//$this->devicelog->insert_log($this->session->userdata('user_id'), $connector_id, 'connector', 'swap', $id);
 						
 					redirect('/cubicle/view/'.$id, 'refresh');
 				}

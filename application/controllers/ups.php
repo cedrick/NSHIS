@@ -206,7 +206,7 @@ class Ups extends CI_Controller {
 
 				if ($id)
 				{
-					$this->devicelog->insert_log($this->session->userdata('user_id'), $ups_id, 'ups', 'swap', $id);
+					//$this->devicelog->insert_log($this->session->userdata('user_id'), $ups_id, 'ups', 'swap', $id);
 						
 					redirect('/cubicle/view/'.$id, 'refresh');
 				}

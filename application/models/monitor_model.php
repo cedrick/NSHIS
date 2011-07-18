@@ -161,6 +161,8 @@ class Monitor_model extends CI_Model {
 		
 		if ($update1 && $update2 && $update3)
 		{
+			$this->devicelog->insert_log($this->session->userdata('user_id'), $monitor_id, 'monitor', 'swap', $dest_cubicle, array('swap_device_id' => $dest_monitor, 'swap_cubicle_id' => $source_cubicle));
+			
 			return $dest_cubicle;
 		}
 		else 

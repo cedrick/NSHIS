@@ -161,6 +161,8 @@ class Keyboard_model extends CI_Model {
 		
 		if ($update1 && $update2 && $update3)
 		{
+			$this->devicelog->insert_log($this->session->userdata('user_id'), $keyboard_id, 'keyboard', 'swap', $dest_cubicle, array('swap_device_id' => $dest_keyboard, 'swap_cubicle_id' => $source_cubicle));
+			
 			return $dest_cubicle;
 		}
 		else 

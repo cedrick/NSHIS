@@ -52,8 +52,10 @@ class Devicelog {
 		//no condition if it was requested by stats controller and limit the result to 50.. VIEW ALL LOGS
 		if ($device_type != 'stats' and $device_type != 'date') {
 			$device_type == 'cubicle' ? $this->CI->db->where('nshis_logs.cubicle_id', $device_id) : $this->CI->db->where(array('nshis_logs.device_id' => $device_id,'nshis_logs.device' => $device_type));
+			//search also on swap logs
+			$device_type == 'cubicle' ? $this->CI->db->or_where('nshis_logs.swap_cubicle_id', $device_id) : $this->CI->db->or_where(array('nshis_logs.swap_device_id' => $device_id,'nshis_logs.device' => $device_type));
 		}
-		else if ($device_type == 'date') {
+		elseif ($device_type == 'date') {
 			$this->CI->db->where("date_format(nshis_logs.cdate, '%m/%d/%Y') = '" . $date_filter . "'");
 		}
 		else {
@@ -164,8 +166,12 @@ class Devicelog {
 			if ($row->device == 'cubicle' || $row->process == 'add') {
 				//ignore preposition where delete cubicle
 				$preposition = '';
-			} else {
-				$preposition = ($row->process == 'assign' || $row->process == 'swap' || $row->process == 'transfer') ? 'to' : ($row->process == 'pullout' ? 'from' : 'from ' . '<strong>'.str_replace('to', '</strong>to<strong>', $row->status_change).'</strong>');
+			} 
+			elseif ($row->process == 'swap' && $row->swap_cubicle_id != '') {
+				$preposition = 'with';
+			}
+			else {
+				$preposition = ($row->process == 'assign' || $row->process == 'transfer') ? 'to' : ($row->process == 'pullout' ? 'from' : 'from ' . '<strong>'.str_replace('to', '</strong>to<strong>', $row->status_change).'</strong>');
 			}
 				
 			//display cubicle or assigned USB headset if applicable.
@@ -176,14 +182,23 @@ class Devicelog {
 			
             //log wrapper
             echo '<div class="log-wrapper">';
-            
 			echo '<div class="log_header">';
 			echo '
 				<ul>
-					<li>'.'<strong>'.strtoupper($row->username).'</strong>'.' '.$operation.' '.$device.' '.$preposition.' '.$cubicle.'</li>
+					<li>';
+			if ($row->process == 'swap' && $row->swap_cubicle_id != '') {
+				echo '<strong>'.strtoupper($row->username).'</strong>'.' '.$operation.' '.anchor($row->device.'/view/'.$row->device_id, $row->device.' ['.$row->device_name.']').'/'.anchor('cubicle/view/'.$row->cubicle_id, '['.$row->cubicle_name.']').' '.$preposition.' '.anchor($row->device.'/view/'.$row->swap_device_id, $row->device.' ['.$this->get_device_name($row->swap_device_id, $row->device).']').'/'.anchor('cubicle/view/'.$row->swap_cubicle_id, '['.$this->get_device_name($row->swap_cubicle_id, 'cubicle').']');
+			} 
+			else {
+				echo '<strong>'.strtoupper($row->username).'</strong>'.' '.$operation.' '.$device.' '.$preposition.' '.$cubicle;
+			}
+			
+			echo '
+					</li>
 					<li class="isDate">'.$row->log_date.' | <a href="#" class="comment_btn" id="'.$row->log_id.'">Comment</a>'.'</li>
 				</ul>
 				';
+			
 			echo '</div>';
 			
 			//comments wrapper
@@ -237,7 +252,14 @@ class Devicelog {
 			//'usb_headset_assignment' => $usb_headset_assigned
 		);
 		
-		$data = $process == 'update status' ? array_merge($data, array('status_change' => $ex_info)) : array_merge($data, array('usb_headset_assignment' => $ex_info));
+		if (is_array($ex_info)) {
+			$data = array_merge($data, $ex_info);
+		} 
+		else {
+			$data = $process == 'update status' ? array_merge($data, array('status_change' => $ex_info)) : array_merge($data, array('usb_headset_assignment' => $ex_info));
+		}
+		
+		//$data = is_array($ex_info) ? array_merge($data, $ex_info) : NULL;
 
 		$this->CI->db->set('cdate', 'NOW()', FALSE);
 

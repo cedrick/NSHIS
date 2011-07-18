@@ -206,7 +206,7 @@ class Keyboard extends CI_Controller {
 
 				if ($id)
 				{
-					$this->devicelog->insert_log($this->session->userdata('user_id'), $keyboard_id, 'keyboard', 'swap', $id);
+					//$this->devicelog->insert_log($this->session->userdata('user_id'), $keyboard_id, 'keyboard', 'swap', $id);
 						
 					redirect('/cubicle/view/'.$id, 'refresh');
 				}

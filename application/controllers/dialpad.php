@@ -46,7 +46,7 @@ class Dialpad extends CI_Controller {
 				
 			if($id)
 			{
-				$this->devicelog->insert_log($this->session->userdata('user_id'), $id, 'dialpad', 'add');
+				//$this->devicelog->insert_log($this->session->userdata('user_id'), $id, 'dialpad', 'add');
 
 				redirect('/dialpad/view/'.$id, 'refresh');
 			}

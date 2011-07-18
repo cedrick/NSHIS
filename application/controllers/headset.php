@@ -206,7 +206,7 @@ class Headset extends CI_Controller {
 
 				if ($id)
 				{
-					$this->devicelog->insert_log($this->session->userdata('user_id'), $headset_id, 'headset', 'swap', $id);
+					//$this->devicelog->insert_log($this->session->userdata('user_id'), $headset_id, 'headset', 'swap', $id);
 						
 					redirect('/cubicle/view/'.$id, 'refresh');
 				}
