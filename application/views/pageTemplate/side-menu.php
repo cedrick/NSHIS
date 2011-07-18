@@ -37,7 +37,7 @@
 		<li><a href="<?php echo base_url();?>cubicle/viewall">View All Cubicles</a></li>
 	</ul>
 	<?php
-	if (($this->uri->segment(2) == 'view' || $this->uri->segment(2) == 'edit' || $this->uri->segment(2) == 'assign'))
+	if (($this->uri->segment(2) == 'view' || $this->uri->segment(2) == 'edit' || $this->uri->segment(2) == 'assign') && $this->uri->segment(1) != 'stats')
 	{
 		echo '
 			<br /><br />
