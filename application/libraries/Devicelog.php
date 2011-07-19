@@ -9,7 +9,11 @@
  */
 class Devicelog {
 	public $CI;
-
+ 	public $device_id;
+ 	public $device_type;
+ 	public $date_filter;
+ 	public $filter_userid;
+	
 	// --------------------------------------------------------------------
 	
 	/**
@@ -43,17 +47,35 @@ class Devicelog {
 	 * @param	string	unique device id
 	 * @param 	string	type of device
 	 */
-	function generate_logs($device_id, $device_type, $date_filter = NULL)
+	function generate_logs($device_id, $device_type, $date_filter = NULL, $params = NULL)
 	{
+		$this->device_id = $device_type == 'stats' || $device_type == 'date' ? 0 : $device_id;
+		$this->device_type = $device_type;
+		$this->date_filter = $date_filter;
+		
 		$this->CI->db->select('*, DATE_FORMAT(nshis_logs.cdate, "%M %e, %Y %l:%i %p") as log_date', FALSE);
 		$this->CI->db->from('nshis_logs');
 		$this->CI->db->join('nshis_users', 'nshis_logs.user_id = nshis_users.ID');
 		
+		//if something were passed on params
+		if ($params != NULL) {
+			$this->CI->db->where($params);
+			$this->filter_userid = $params['user_id'];
+		}
+		
 		//no condition if it was requested by stats controller and limit the result to 50.. VIEW ALL LOGS
 		if ($device_type != 'stats' and $device_type != 'date') {
-			$device_type == 'cubicle' ? $this->CI->db->where('nshis_logs.cubicle_id', $device_id) : $this->CI->db->where(array('nshis_logs.device_id' => $device_id,'nshis_logs.device' => $device_type));
+			if ($device_type == 'cubicle') {
+				$this->CI->db->where('(nshis_logs.cubicle_id = '.$device_id.' OR nshis_logs.swap_cubicle_id = '.$device_id.')');
+				//$this->CI->db->or_where('nshis_logs.swap_cubicle_id', $device_id);
+			}
+			else {
+				$this->CI->db->where(array('nshis_logs.device_id' => $device_id,'nshis_logs.device' => $device_type));
+				$this->CI->db->or_where('nshis_logs.swap_device_id = '.$device_id.' AND nshis_logs.device = \''.$device_type.'\'');
+			}
+			//$device_type == 'cubicle' ? $this->CI->db->where('nshis_logs.cubicle_id', $device_id) : $this->CI->db->where(array('nshis_logs.device_id' => $device_id,'nshis_logs.device' => $device_type));
 			//search also on swap logs
-			$device_type == 'cubicle' ? $this->CI->db->or_where('nshis_logs.swap_cubicle_id', $device_id) : $this->CI->db->or_where(array('nshis_logs.swap_device_id' => $device_id,'nshis_logs.device' => $device_type));
+			//$device_type == 'cubicle' ? $this->CI->db->or_where('nshis_logs.swap_cubicle_id', $device_id) : $this->CI->db->or_where('nshis_logs.swap_device_id = '.$device_id.' AND nshis_logs.device = \''.$device_type.'\'');
 		}
 		elseif ($device_type == 'date') {
 			$this->CI->db->where("date_format(nshis_logs.cdate, '%m/%d/%Y') = '" . $date_filter . "'");
@@ -143,11 +165,62 @@ class Devicelog {
 					}
 					return 0;
 				}
+				
+				$("#log_filter_user").change(function(){
+					var f_user = 0;
+					
+					f_user = $(this).val();
+					
+					 $("#log_content#").block({ 
+		                message: "Please wait.....", 
+		                css: { 
+				            border: "none", 
+				            padding: "15px", 
+				            backgroundColor: "#000", 
+				            "-webkit-border-radius": "10px", 
+				            "-moz-border-radius": "10px", 
+				            opacity: .5, 
+				            color: "#fff"
+				        }
+		            }); 
+		            
+					$.post(base_url + "ajax/comment_filter", {
+						device_id : '.$this->device_id.',
+						device_type : "'.$this->device_type.'",
+						date_filter : "'.$this->date_filter.'",
+						user_filter : f_user
+					}, function(data) {
+						//alert(data);
+						$("#log_content").replaceWith(data);
+						//window.location.reload(true);
+					});
+				});
+				
+				$("#f_toggle").click(function(){
+					$("#log_filter").animate({height: "toggle"});
+					$("#f_toggle p").toggle();
+				});
 			});
 		</script>';
 		
 		//parent wrapper
 		echo '<div id="log_content">';
+		
+		//get users for filter dropdown
+		$this->CI->db->order_by('username');
+		$users = $this->CI->db->get('nshis_users');
+		
+		$user_options = array('' => '-User-');
+		foreach ($users->result() as $user) {
+			$array = array($user->ID => $user->username);
+			$user_options = $user_options + $array;
+		}
+		
+		echo '<div id="log_filter"><ul><li>Filter: '.form_dropdown('log_filter_user', $user_options, $this->filter_userid, 'id="log_filter_user"').'</li></ul></div>';
+		echo '<div id="f_toggle">
+				<p style="display: none">Show Filter +</p>
+				<p>Hide Filter -</p>
+			</div>';
 		
 		foreach ($query_result->result() as $row)
 		{

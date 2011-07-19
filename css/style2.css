@@ -394,6 +394,30 @@ ul.icons span.ui-icon {float: left; margin: 0 4px;}
 	color: #3B3F9F;
 }
 
+#log_content {
+	background-color: #FAFAFA;
+}
+
+
+#log_filter {
+	background-color: #9CCCE2;
+	padding: 10px;
+	font-weight: 900;
+}
+
+#f_toggle {
+	font-size: 10px;
+	color: #29A7DF;
+}
+	#f_toggle p {
+		margin: 0 0 10px 0;
+	}
+
+#f_toggle:HOVER {
+	cursor: pointer;
+	text-decoration: underline;
+}
+
 /* Status styles */
 .device-status {
 	color: black;

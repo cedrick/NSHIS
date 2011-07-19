@@ -14,11 +14,24 @@ class Ajax extends CI_Controller {
 		
 		$this->load->model('Usb_headset_model');
 		
+		$this->config->set_item('enable_profiling', FALSE);
+		
 	}
 
 	function comment_add()
 	{
 		$this->Ajax_model->comment_add($_POST['log_id'], $_POST['comment']);
+	}
+	
+	function comment_filter()
+	{
+		if ($_POST['user_filter'] != '') {
+			$this->devicelog->generate_logs($_POST['device_id'], $_POST['device_type'], $_POST['date_filter'], array('user_id' => $_POST['user_filter']));
+		} 
+		else {
+			$this->devicelog->generate_logs($_POST['device_id'], $_POST['device_type'], $_POST['date_filter']);
+		}
+		//$this->Ajax_model->comment_add($_POST['log_id'], $_POST['comment']);
 	}
 	
 	function status_change()

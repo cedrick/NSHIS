@@ -20,7 +20,6 @@ class Log extends CI_Controller {
 			$date = strtotime($this->input->post('mdate'));
 			
 			redirect(base_url().'log/daily/'.$date, 'refresh');
-			
 		}
 		
 		if(NULL == $sdate_unix) {
