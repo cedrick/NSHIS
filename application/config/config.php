@@ -368,5 +368,14 @@ $config['proxy_ips'] = '';
 $config['enable_profiling'] = TRUE;
 
 
+/*
+|--------------------------------------------------------------------------
+| NSHIS Version
+|--------------------------------------------------------------------------
+|Turn debugging on or off
+|
+*/
+$config['version'] = 'v1.0.65';
+
 /* End of file config.php */
 /* Location: ./application/config/config.php */

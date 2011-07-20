@@ -1,5 +1,5 @@
 body {
-	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-family: "lucida grande",tahoma,verdana,arial,sans-serif;
 	font-size: 10px;
 	width:1230px;
 }
@@ -403,6 +403,11 @@ ul.icons span.ui-icon {float: left; margin: 0 4px;}
 	background-color: #9CCCE2;
 	padding: 10px;
 	font-weight: 900;
+}
+
+#log_filter ul {
+	font-size: 10px;
+	margin-left: 10px;
 }
 
 #f_toggle {

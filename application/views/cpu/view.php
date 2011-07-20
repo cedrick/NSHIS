@@ -53,6 +53,14 @@
 									<td id="resultName">Notes</td><td><?php echo $row->notes;?></td>
 								</tr>
 							 </table>
+							 <?php 
+								//get parent class
+								//$class = $this->router->fetch_class();
+								//generate id format
+								//$id = $this->router->fetch_class().'_id';
+								//generate logs.
+								//$this->deviceaction->generate_actions($row->$id, $class);	
+							?>
 						</div>
 					</div>
 					<div class="section width700" >

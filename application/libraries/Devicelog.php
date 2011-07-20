@@ -13,6 +13,8 @@ class Devicelog {
  	public $device_type;
  	public $date_filter;
  	public $filter_userid;
+ 	public $statuses = array();
+ 	
 	
 	// --------------------------------------------------------------------
 	
@@ -59,8 +61,13 @@ class Devicelog {
 		
 		//if something were passed on params
 		if ($params != NULL) {
-			$this->CI->db->where($params);
-			$this->filter_userid = $params['user_id'];
+			isset($params['user_id']) ? $this->CI->db->where("user_id = ".$params['user_id']) : NULL;
+			isset($params['status']) ? $this->CI->db->where_in('process', $params['status']) : NULL;
+			$this->filter_userid = &$params['user_id'];
+			$this->statuses = &$params['status'];
+			
+			$this->statuses = is_null($this->statuses) ? array('' => '') : $this->statuses;
+			
 		}
 		
 		//no condition if it was requested by stats controller and limit the result to 50.. VIEW ALL LOGS
@@ -167,11 +174,16 @@ class Devicelog {
 				}
 				
 				$("#log_filter_user").change(function(){
-					var f_user = 0;
-					
-					f_user = $(this).val();
-					
-					 $("#log_content#").block({ 
+					submit_data();
+				});
+				
+				$("#log_filter_status input").click(function(){
+					submit_data();
+				}); 
+				
+				function submit_data()
+				{
+					$("#log_content#").block({ 
 		                message: "Please wait.....", 
 		                css: { 
 				            border: "none", 
@@ -188,20 +200,48 @@ class Devicelog {
 						device_id : '.$this->device_id.',
 						device_type : "'.$this->device_type.'",
 						date_filter : "'.$this->date_filter.'",
-						user_filter : f_user
+						user_filter : get_user_val(),
+						status_filter : get_status_val()
 					}, function(data) {
 						//alert(data);
 						$("#log_content").replaceWith(data);
-						//window.location.reload(true);
 					});
-				});
+				}
 				
+				function get_status_val()
+				{
+					var allVals = [];
+					
+					$("#log_filter_status :checked").each(function(){
+						allVals.push($(this).val());
+					});
+					
+					return allVals;
+				}
+				
+				function get_user_val()
+				{
+					var f_user = 0;
+					
+					f_user = $("#log_filter_user").val();
+					
+					return f_user;
+				}
+				';
+				if (strlen($this->filter_userid) > 0 || count($this->statuses) > 0) {
+					echo '$("#log_filter").toggle();';
+					echo '$("#f_toggle p").toggle();';
+				}
+		
+		echo '
 				$("#f_toggle").click(function(){
 					$("#log_filter").animate({height: "toggle"});
 					$("#f_toggle p").toggle();
 				});
 			});
 		</script>';
+		
+		
 		
 		//parent wrapper
 		echo '<div id="log_content">';
@@ -216,10 +256,25 @@ class Devicelog {
 			$user_options = $user_options + $array;
 		}
 		
-		echo '<div id="log_filter"><ul><li>Filter: '.form_dropdown('log_filter_user', $user_options, $this->filter_userid, 'id="log_filter_user"').'</li></ul></div>';
+		echo '<div id="log_filter" style="display: none">
+				Filter<br />
+				---------------------------------------------------------
+				<ul><li>User: '.form_dropdown('log_filter_user', $user_options, $this->filter_userid, 'id="log_filter_user"').'</li></ul>
+				---------------------------------------------------------
+				<ul><li id="log_filter_status">Status:'.
+					'<table>
+						<tr><td>'.form_checkbox('status', 'add', in_array('add', $this->statuses)).'add'.'</td><td>'.form_checkbox('status', 'assign', in_array('assign', $this->statuses)).'assign'.'</td><td>'.form_checkbox('status', 'change status', in_array('change status', $this->statuses)).'change status'.'</td></tr>
+						<tr><td>'.form_checkbox('status', 'comment', in_array('comment', $this->statuses)).'comment'.'</td><td>'.form_checkbox('status', 'delete', in_array('delete', $this->statuses)).'delete'.'</td><td>'.form_checkbox('status', 'edit', in_array('edit', $this->statuses)).'edit'.'</td></tr>
+						<tr><td>'.form_checkbox('status', 'pullout', in_array('pullout', $this->statuses)).'pullout'.'</td><td>'.form_checkbox('status', 'swap', in_array('swap', $this->statuses)).'swap'.'</td><td>'.form_checkbox('status', 'transfer', in_array('transfer', $this->statuses)).'transfer'.'</td></tr>
+						<tr><td>'.form_checkbox('status', 'unassign', in_array('unassign', $this->statuses)).'unassign'.'</td><td>'.form_checkbox('status', 'update status', in_array('update status', $this->statuses)).'update status'.'</td><td></td></tr>
+					</table>'.
+					'</li>
+				</ul>
+				---------------------------------------------------------
+			  </div>';
 		echo '<div id="f_toggle">
-				<p style="display: none">Show Filter +</p>
-				<p>Hide Filter -</p>
+				<p>Show Filter +</p>
+				<p style="display: none">Hide Filter -</p>
 			</div>';
 		
 		foreach ($query_result->result() as $row)

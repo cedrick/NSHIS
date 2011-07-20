@@ -1,6 +1,6 @@
 <div id="logoContentHeader">
 	<div id="nslogo"></div>
-	<div id="titleText">NSHIS v1.0.5</div>
+	<div id="titleText">NSHIS <?php echo $this->config->item('version'); ?></div>
 </div>
 <div id="menuContentHeader">
 	<div class="menu">
