@@ -34,7 +34,7 @@
 								//generate id format
 								$id = $this->router->fetch_class().'_id';
 								//generate logs.
-								$this->devicelog->generate_logs(0, 'date', $data['date']);	
+								$this->devicelog->generate_logs(0, 'date', array('cdate' => $data['date']));	
 							?>
 						</div>
 					</div>

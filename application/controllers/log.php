@@ -35,7 +35,14 @@ class Log extends CI_Controller {
 		
 		$data = array('date' => $date);
 		
-		$this->load->view('template',array('page'=>'log', 'data' => $data));
+		$this->load->view('template',array('page'=>'log/log_date', 'data' => $data));
+	}
+	
+	function user($id = NULL)
+	{
+		isset($_POST['id']) ? redirect('log/user/'.$_POST['id']): NULL;
+		$data = array('id' => $id);
+		$this->load->view('template',array('page'=>'log/log_user', 'data' => $data));
 	}
 	
 	function userCheck($is_logged)

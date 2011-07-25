@@ -382,7 +382,19 @@ ul.icons span.ui-icon {float: left; margin: 0 4px;}
 			}
 	
 	.log-wrapper {
-		margin-bottom: 10px;
+		margin: 10px;
+	}
+	.log-date-wrapper {
+		border: #87CEEB 2px solid;
+		margin-bottom: 20px;
+		
+	} 
+	.log-date {
+		font-weight: 900;
+		background-color: #87CEEB;
+		padding: 5px;
+		text-align: center;
+		font-size: 12px;
 	}
 
 .isDate {
@@ -398,9 +410,8 @@ ul.icons span.ui-icon {float: left; margin: 0 4px;}
 	background-color: #FAFAFA;
 }
 
-
 #log_filter {
-	background-color: #9CCCE2;
+	background-color: #87CEEB;
 	padding: 10px;
 	font-weight: 900;
 }

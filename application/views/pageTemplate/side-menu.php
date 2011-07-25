@@ -33,6 +33,7 @@
 	<a href='#'>QUICK LINKS</a><br />
 	<ul>
 		<li><a href="<?php echo base_url();?>log/daily">Daily Item Logs</a></li>
+		<li><a href="<?php echo base_url();?>log/user">User Logs</a></li>
 		<li><a href="<?php echo base_url();?>search">Search Item</a></li>
 		<li><a href="<?php echo base_url();?>cubicle/viewall">View All Cubicles</a></li>
 	</ul>
