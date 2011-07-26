@@ -38,7 +38,7 @@ class Log extends CI_Controller {
 		$this->load->view('template',array('page'=>'log/log_date', 'data' => $data));
 	}
 	
-	function user($id = NULL)
+	function user($id = 'ALL')
 	{
 		isset($_POST['id']) ? redirect('log/user/'.$_POST['id']): NULL;
 		$data = array('id' => $id);

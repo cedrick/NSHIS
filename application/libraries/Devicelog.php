@@ -120,7 +120,7 @@ class Devicelog {
 		$this->CI->db->from('nshis_logs');
 		$this->CI->db->join('nshis_users', 'nshis_logs.user_id = nshis_users.ID');
 		
-		$user_id != '' ? $this->CI->db->where("nshis_logs.user_id = ".$user_id) : NULL;
+		$user_id != 'ALL' ? $this->CI->db->where("nshis_logs.user_id = ".$user_id) : NULL;
 		
 		if ($params != NULL) {
 			isset($params['status']) ? $this->CI->db->where_in('nshis_logs.process', $params['status']) : NULL;
@@ -129,7 +129,8 @@ class Devicelog {
 			$this->statuses = is_null($this->statuses) ? array('' => '') : $this->statuses;
 		}
 		
-		$this->filter_userid = $user_id != '' ? $user_id : 0;
+		//$this->filter_userid = $user_id != 'ALL' ? $user_id : 0;
+		$this->filter_userid = $user_id;
 		
 		$this->CI->db->order_by('nshis_logs.log_id', 'DESC');
 		
@@ -152,7 +153,7 @@ class Devicelog {
 		$this->CI->db->from('nshis_logs');
 		$this->CI->db->join('nshis_users', 'nshis_logs.user_id = nshis_users.ID');
 		
-		$user_id != '' ? $this->CI->db->where("nshis_logs.user_id = ".$user_id) : NULL;
+		$user_id != 'ALL' ? $this->CI->db->where("nshis_logs.user_id = ".$user_id) : NULL;
 		
 		if ($params != NULL) {
 			isset($params['status']) ? $this->CI->db->where_in('nshis_logs.process', $params['status']) : NULL;

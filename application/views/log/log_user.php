@@ -13,7 +13,7 @@
 											$this->db->order_by('username');
 											$users = $this->db->get('nshis_users');
 											
-											$user_options = array('' => '-User-');
+											$user_options = array('ALL' => '-User-');
 											foreach ($users->result() as $user) {
 												$array = array($user->ID => $user->username);
 												$user_options = $user_options + $array;
