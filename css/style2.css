@@ -385,13 +385,13 @@ ul.icons span.ui-icon {float: left; margin: 0 4px;}
 		margin: 10px;
 	}
 	.log-date-wrapper {
-		border: #87CEEB 2px solid;
+		border: #E6EEEE 2px solid;
 		margin-bottom: 20px;
 		
 	} 
 	.log-date {
 		font-weight: 900;
-		background-color: #87CEEB;
+		background-color: #E6EEEE;
 		padding: 5px;
 		text-align: center;
 		font-size: 12px;
@@ -404,10 +404,6 @@ ul.icons span.ui-icon {float: left; margin: 0 4px;}
 
 .comment_btn {
 	color: #3B3F9F;
-}
-
-#log_content {
-	background-color: #FAFAFA;
 }
 
 #log_filter {
@@ -454,3 +450,17 @@ ul.icons span.ui-icon {float: left; margin: 0 4px;}
 	font-weight: 900;
 }
 
+/* Table Styles 
+#table_result {
+	border: #87CEEB 2px solid;
+}
+	#header {
+		background-color: #87CEEB;
+		text-align: left;
+	}
+	
+	#table_result td {
+		border-right: #87CEEB 1px solid;
+	}
+
+*/

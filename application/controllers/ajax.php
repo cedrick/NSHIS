@@ -68,10 +68,25 @@ class Ajax extends CI_Controller {
 		$this->Ajax_model->status_change($_POST['item'], $_POST['item_id'], $_POST['status'], $_POST['status_comment']);
 	}
 	
-	function assign_headset()
+	function assign_headset($headset_id = NULL, $user_id = NULL)
 	{
-		$this->Usb_headset_model->assign_usb_headset($_POST['headset_id'], $_POST['user_id']);
+		if (!isset($headset_id) OR !isset($user_id)) {
+			$headset_id = $_POST['headset_id'];
+			$user_id = $_POST['user_id'];
+		}
 		
-		$this->devicelog->insert_log($this->session->userdata('user_id'), $_POST['headset_id'], 'usb_headset', 'assign', 0, $this->People_model->get_name($_POST['user_id']));
+		$this->Usb_headset_model->assign_usb_headset($headset_id, $user_id);
+		
+		$this->devicelog->insert_log($this->session->userdata('user_id'), $headset_id, 'usb_headset', 'assign', 0, $this->People_model->get_name($user_id));
+	}
+	
+	function assign_item()
+	{
+		if ($_POST['item'] == 'usbheadset') {
+			$this->assign_headset($_POST['item_id'], $_POST['location_id']);
+		} else {
+			$this->Ajax_model->assign_item($_POST['item'], $_POST['item_id'], $_POST['location_id']);
+		}
+			
 	}
 }

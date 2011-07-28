@@ -44,4 +44,33 @@ class Ajax_model extends CI_Model {
 		}
 	}
 	
+	function assign_item($item, $item_id, $cubicle_id)
+	{
+		//update cubicle table
+		$data = array(
+        	$item => $item_id,
+        );
+		$update1 = $this->db->update('nshis_cubicles', $data, array('cubicle_id' => $cubicle_id));
+		
+		//update item table
+		$data = array(
+        	'flag_assigned' => 1,
+            'cubicle_id' => $cubicle_id,
+        );
+            
+		$update2 = $this->db->update('nshis_'.$item.'s', $data, array($item.'_id' => $item_id));
+		
+		if($update1 && $update2)
+		{
+			//log
+			$this->devicelog->insert_log($this->session->userdata('user_id'), $item_id, $item, 'assign', $cubicle_id);
+			return TRUE;
+		}
+		else 
+		{
+			return FALSE;
+		}
+		
+	}
+	
 }

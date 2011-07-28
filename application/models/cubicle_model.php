@@ -72,7 +72,7 @@ class Cubicle_model extends CI_Model {
 	{
 		$delete = $this->db->delete('nshis_cubicles', array('cubicle_id' => $cubicle_id));
 		
-		$devices = array('keyboards','mouses');
+		$devices = array('keyboards','mouses','connectors','cpus','dialpads','headsets','monitors','upss');
 		
 		foreach ($devices as $device)
 		{

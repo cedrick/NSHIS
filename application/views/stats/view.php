@@ -1,10 +1,7 @@
 					<?php 
 						switch ($data['status']) {
-							case 0 :
-								$status = 'Deployed';
-								break;
 							case 1 :
-								$status = 'Available';
+								$status = $data['flag_assigned'] && ($data['flag_assigned']) == 1 ? 'Deployed':'Avaliable';
 								break;
 							case 2 :
 								$status = 'Defective';
@@ -24,11 +21,12 @@
 					<div class="section width500" >
 						<div class="sectionHeader">View <?php echo $status . ' ' . $data['device']; ?></div>
 						<div class="sectionBody">
-							<table width="100%" border="0" cellpadding="0" id="latestStatusTable">
-								<tr class="latestStatusTableHeader"><td>NAME</td><td>STATUS</td><td>ASSIGNED CUBICLE</td></tr>
-								<?php 
-									$this->Stats_model->fetch_items($data['device'], $data['status'], $this->uri->segment(5));
-								?>
+							<?php 
+								if ($data['flag_assigned'] == -1)
+									unset($data['flag_assigned']);
+									
+								$this->deviceaction->view_all($data);
+							?>
 							</table>
 						</div>
 					</div>

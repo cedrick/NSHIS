@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 	<head>
 		<title>Northstar Solutions - Hardware Inventory System</title>
-		<link type="text/css" href="<?php echo base_url() ?>css/style2.css" rel="stylesheet" />  
+		<link type="text/css" href="<?php echo base_url() ?>css/style2.css" rel="stylesheet" /> 
 		<link type="text/css" href="<?php echo base_url() ?>calendar/cwcalendar.css" rel="stylesheet" />
 		<script type="text/javascript" src="<?php echo base_url() ?>calendar/calendar.js"></script>
 		<script type="text/javascript" src="<?php echo base_url() ?>jquery/jquery-ui/js/jquery-1.6.1.min.js"></script>
@@ -10,6 +10,8 @@
 		<link type="text/css" href="<?php echo base_url() ?>jquery/jquery-ui/css/custom-theme/jquery-ui-1.8.14.custom.css" rel="stylesheet" />  
 		<script type="text/javascript" src="<?php echo base_url() ?>jquery/plugins/jquery.autogrowtextarea.js"></script>
 		<script type="text/javascript" src="<?php echo base_url() ?>jquery/plugins/ambet.autocomplete.js"></script>
+		<script type="text/javascript" src="<?php echo base_url() ?>jquery/plugins/jquery.tablesorter.min.js"></script>
+		<link type="text/css" href="<?php echo base_url() ?>css/blue/style.css" rel="stylesheet" />  
 		<script type="text/javascript" src="<?php echo base_url() ?>jquery/plugins/blockui.js"></script>
 		<style>
 			.ui-autocomplete {

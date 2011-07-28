@@ -137,9 +137,9 @@ class CPU extends CI_Controller {
 
 	function viewall()
 	{
-		$data = $this->CPU_model->get_all_cpu_info();
+		//$data = $this->CPU_model->get_all_cpu_info();
 
-		$this->load->view('template',array('page'=>'cpu/viewall', 'data'=>$data));
+		$this->load->view('template',array('page'=>'cpu/viewall'));
 	}
 
 	function edit($cpu_id = NULL)

@@ -129,7 +129,7 @@ class Stats_model extends CI_Model {
 			echo '<td>'.$hardware.'</td>';
 			//count available
 			$query = $this->db->get_where('nshis_'.$hardware.'s', array('flag_assigned' => 0, 'status' => 1));
-			echo '<td>'.anchor('stats/view/'.$hardware.'/1', $query->num_rows()).'</td>';
+			echo '<td>'.anchor('stats/view/'.$hardware.'/1/0', $query->num_rows()).'</td>';
 			
 			//count defective/broken
 			$query = $this->db->get_where('nshis_'.$hardware.'s', array('flag_assigned' => 0, 'status' => 2));
@@ -149,7 +149,7 @@ class Stats_model extends CI_Model {
 			
 			//count Deployed
 			$query = $this->db->get_where('nshis_'.$hardware.'s', array('flag_assigned' => 1));
-			echo '<td>'.anchor('stats/view/'.$hardware.'/0/1', $query->num_rows()).'</td>';
+			echo '<td>'.anchor('stats/view/'.$hardware.'/1/1', $query->num_rows()).'</td>';
 			
 			//count All
 			$query = $this->db->get('nshis_'.$hardware.'s');

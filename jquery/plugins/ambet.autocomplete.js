@@ -106,7 +106,7 @@
 						})( jQuery );
 					
 						$(function() {
-							$( "#combobox" ).combobox();
+							$( "#combobox, .combobox" ).combobox();
 							$( "#toggle" ).click(function() {
 								$( "#combobox" ).toggle();
 							});

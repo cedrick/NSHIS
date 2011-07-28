@@ -24,9 +24,9 @@ class Stats extends CI_Controller {
 		$this->load->view('template',array('page'=>'index'));
 	}
 	
-	function view($device, $status)
+	function view($device, $status, $assign = -1)
 	{
-		$data = array('device' => $device, 'status' => $status);
+		$data = array('device' => $device, 'status' => $status, 'flag_assigned' => $assign);
 		
 		$this->load->view('template',array('page'=>'stats/view', 'data' => $data));
 	}

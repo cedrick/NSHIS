@@ -375,7 +375,7 @@ $config['enable_profiling'] = TRUE;
 |Turn debugging on or off
 |
 */
-$config['version'] = 'v1.0.7';
+$config['version'] = 'v1.0.8';
 
 /* End of file config.php */
 /* Location: ./application/config/config.php */
